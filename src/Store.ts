@@ -1,9 +1,14 @@
+import { makeAutoObservable } from "mobx";
 import { byDate } from "./dataSorters";
 import { Filter } from "./Filter";
 import { getTrackmanEvents } from "./getTrackmanEvents";
 import { isOnlineEventWithRecording, TrackmanEvent } from "./TrackmanEvent";
 
 export class Store {
+  constructor() {
+    makeAutoObservable(this);
+  }
+
   isLoading: boolean = true;
 
   upcomingEvents: TrackmanEvent[] = [];
@@ -26,8 +31,7 @@ export class Store {
     .filter(isOnlineEventWithRecording)
     .sort(byDate(event => event.startDate, 'ASCENDING'));
 
-    this.filteredUpcomingEvents = this.upcomingEvents;
-    this.filteredOnDemandEvents = this.onDemandEvents;
+    this.refreshFilteredEvents();
 
     this.isLoading = false;
   }

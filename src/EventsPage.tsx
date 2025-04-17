@@ -27,9 +27,9 @@ export const EventsPage = () => {
 }
 
 const UpcomingEvents = () => {
-  return <Typography variant="h6">Upcoming Events</Typography>
+  return <Typography variant="h6">Upcoming Events placeholder</Typography>
 }
 
 const OnDemandEvents = () => {
-  return <Typography variant="h6">On Demand Events</Typography>
+  return <Typography variant="h6">On Demand Events placeholder</Typography>
 }
