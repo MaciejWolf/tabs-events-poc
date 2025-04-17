@@ -4,7 +4,7 @@ import { Filter } from "./Filter";
 import { getTrackmanEvents } from "./getTrackmanEvents";
 import { isOnlineEventWithRecording, TrackmanEvent } from "./TrackmanEvent";
 
-export class Store {
+class Store {
   constructor() {
     makeAutoObservable(this);
   }
@@ -61,3 +61,5 @@ export class Store {
     return filters.some(filter => filter(event));
   }
 }
+
+export const store = new Store();

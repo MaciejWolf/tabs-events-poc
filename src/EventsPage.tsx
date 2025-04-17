@@ -1,8 +1,15 @@
 import { Box, Tab, Tabs, Typography } from "@mui/material"
-import { useState } from "react";
+import { observer } from "mobx-react-lite";
+import { useEffect, useState } from "react";
+import { UpcomingEvents } from "./UpcomingEvents";
+import { store } from "./Store";
 
 export const EventsPage = () => {
   const [selectedTab, setSelectedTab] = useState(0);
+
+  useEffect(() => {
+    store.getTrackmanEvents()
+  }, [store]);
 
   const handleChange = (_event: React.SyntheticEvent, newValue: number) => {
     setSelectedTab(newValue)
@@ -26,10 +33,6 @@ export const EventsPage = () => {
   )
 }
 
-const UpcomingEvents = () => {
-  return <Typography variant="h6">Upcoming Events placeholder</Typography>
-}
-
-const OnDemandEvents = () => {
+const OnDemandEvents = observer(() => {
   return <Typography variant="h6">On Demand Events placeholder</Typography>
-}
+});

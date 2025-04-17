@@ -37,5 +37,11 @@ export const getTrackmanEvents = async (): Promise<TrackmanEvent[]> => {
     },
   ];
 
+  await sleep(1000); // Simulate network delay
+
   return mockEvents;
 }
+
+const sleep = async (ms: number): Promise<void> => {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+};
