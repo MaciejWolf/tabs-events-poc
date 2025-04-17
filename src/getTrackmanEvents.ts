@@ -1,31 +1,4 @@
-type BaseEvent = {
-  id: string;
-  name: string;
-  startDate: string;
-  isPremium: boolean;
-};
-
-type OnlineEventWithRecording = {
-  locationType: 'online';
-  recordingReady: true;
-  recordingUrl: string;
-};
-
-type OnlineEventWithoutRecording = {
-  locationType: 'online';
-  recordingReady: false;
-};
-
-type InPersonEvent = {
-  locationType: 'inPerson';
-  location: string;
-};
-
-export type TrackmanEvent = BaseEvent & (
-  | OnlineEventWithRecording
-  | OnlineEventWithoutRecording
-  | InPersonEvent
-);
+import { TrackmanEvent } from "./TrackmanEvent";
 
 export const getTrackmanEvents = async () => {
   const mockEvents: TrackmanEvent[] = [
