@@ -5,18 +5,18 @@ type BaseEvent = {
   isPremium: boolean;
 };
 
-type OnlineEventWithRecording = BaseEvent & {
+export type OnlineEventWithRecording = BaseEvent & {
   locationType: 'online';
   recordingReady: true;
   recordingUrl: string;
 };
 
-type OnlineEventWithoutRecording = BaseEvent & {
+export type OnlineEventWithoutRecording = BaseEvent & {
   locationType: 'online';
   recordingReady: false;
 };
 
-type InPersonEvent = BaseEvent & {
+export type InPersonEvent = BaseEvent & {
   locationType: 'inPerson';
   location: string;
 };

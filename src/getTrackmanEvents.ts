@@ -35,6 +35,22 @@ export const getTrackmanEvents = async (): Promise<TrackmanEvent[]> => {
       locationType: 'inPerson',
       location: 'Pebble Beach, California',
     },
+    {
+      id: '5',
+      name: 'Online Golf Strategy Session',
+      startDate: '2025-11-20T12:00:00Z',
+      isPremium: true,
+      locationType: 'online',
+      recordingReady: false
+    },
+    {
+      id: '6',
+      name: 'Golf Fitness Webinar',
+      startDate: '2023-11-25T15:00:00Z',
+      isPremium: false,
+      locationType: 'online',
+      recordingReady: false
+    }
   ];
 
   await sleep(1000); // Simulate network delay
