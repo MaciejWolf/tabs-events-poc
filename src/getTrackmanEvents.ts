@@ -1,6 +1,6 @@
 import { TrackmanEvent } from "./TrackmanEvent";
 
-export const getTrackmanEvents = async () => {
+export const getTrackmanEvents = async (): Promise<TrackmanEvent[]> => {
   const mockEvents: TrackmanEvent[] = [
     {
       id: '1',
