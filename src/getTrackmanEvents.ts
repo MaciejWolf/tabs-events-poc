@@ -14,7 +14,7 @@ export const getTrackmanEvents = async (): Promise<TrackmanEvent[]> => {
     {
       id: '2',
       name: 'In-Person Golf Workshop',
-      startDate: '2023-11-05T14:00:00Z',
+      startDate: '2025-11-05T14:00:00Z',
       isPremium: false,
       locationType: 'inPerson',
       location: 'Golf Club, New York',
@@ -30,7 +30,7 @@ export const getTrackmanEvents = async (): Promise<TrackmanEvent[]> => {
     {
       id: '4',
       name: 'Golf Tournament',
-      startDate: '2023-11-15T08:00:00Z',
+      startDate: '2025-11-15T08:00:00Z',
       isPremium: false,
       locationType: 'inPerson',
       location: 'Pebble Beach, California',
