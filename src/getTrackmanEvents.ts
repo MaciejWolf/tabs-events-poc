@@ -1,15 +1,31 @@
-export type TrackmanEvent = {
+type BaseEvent = {
   id: string;
   name: string;
   startDate: string;
   isPremium: boolean;
-} & ({
+};
+
+type OnlineEventWithRecording = {
   locationType: 'online';
-  recordingReady: boolean;
-} | {
+  recordingReady: true;
+  recordingUrl: string;
+};
+
+type OnlineEventWithoutRecording = {
+  locationType: 'online';
+  recordingReady: false;
+};
+
+type InPersonEvent = {
   locationType: 'inPerson';
   location: string;
-});
+};
+
+export type TrackmanEvent = BaseEvent & (
+  | OnlineEventWithRecording
+  | OnlineEventWithoutRecording
+  | InPersonEvent
+);
 
 export const getTrackmanEvents = async () => {
   const mockEvents: TrackmanEvent[] = [
@@ -19,7 +35,8 @@ export const getTrackmanEvents = async () => {
       startDate: '2023-11-01T10:00:00Z',
       isPremium: true,
       locationType: 'online',
-      recordingReady: true
+      recordingReady: true,
+      recordingUrl: 'https://example.com/recording1',
     },
     {
       id: '2',
