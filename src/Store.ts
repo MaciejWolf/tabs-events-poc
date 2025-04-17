@@ -1,4 +1,5 @@
 import { byDate } from "./dataSorters";
+import { Filter } from "./Filter";
 import { getTrackmanEvents } from "./getTrackmanEvents";
 import { isOnlineEventWithRecording, TrackmanEvent } from "./TrackmanEvent";
 
@@ -10,6 +11,8 @@ export class Store {
 
   filteredUpcomingEvents: TrackmanEvent[] = [];
   filteredOnDemandEvents: TrackmanEvent[] = [];
+
+  filters: Filter[] = [];
 
   getTrackmanEvents = async () => {
     this.isLoading = true;
@@ -29,7 +32,28 @@ export class Store {
     this.isLoading = false;
   }
 
-  clearFilters = () => {}
-  addFilter = () => {}
-  removeFilter = () => {}
+  clearFilters = () => {
+    this.filters = [];
+    this.refreshFilteredEvents();
+  }
+  addFilter = (filter: Filter) => {
+    this.filters.push(filter);
+    this.refreshFilteredEvents();
+  }
+
+  removeFilter = (key: string) => {
+    this.filters = this.filters.filter(filter => filter.key !== key);
+    this.refreshFilteredEvents();
+  }
+
+  private refreshFilteredEvents = () => {
+    const filters = this.filters.length > 0 ? this.filters.map(f => f.isSatisfiedBy) : [() => true];
+
+    this.filteredUpcomingEvents = this.upcomingEvents.filter(this.isSatisfiedByAnyOf(filters));
+    this.filteredOnDemandEvents = this.onDemandEvents.filter(this.isSatisfiedByAnyOf(filters));
+  }
+
+  private isSatisfiedByAnyOf = (filters: ((event: TrackmanEvent) => boolean)[]) => (event: TrackmanEvent) => {
+    return filters.some(filter => filter(event));
+  }
 }
