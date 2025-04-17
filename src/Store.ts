@@ -8,6 +8,9 @@ export class Store {
   upcomingEvents: TrackmanEvent[] = [];
   onDemandEvents: TrackmanEvent[] = [];
 
+  filteredUpcomingEvents: TrackmanEvent[] = [];
+  filteredOnDemandEvents: TrackmanEvent[] = [];
+
   getTrackmanEvents = async () => {
     this.isLoading = true;
     const response = await getTrackmanEvents();
@@ -18,8 +21,15 @@ export class Store {
 
     this.onDemandEvents = response
     .filter(isOnlineEventWithRecording)
-    .sort(byDate(event => event.startDate, 'DESCENDING'));
+    .sort(byDate(event => event.startDate, 'ASCENDING'));
 
-    
+    this.filteredUpcomingEvents = this.upcomingEvents;
+    this.filteredOnDemandEvents = this.onDemandEvents;
+
+    this.isLoading = false;
   }
+
+  clearFilters = () => {}
+  addFilter = () => {}
+  removeFilter = () => {}
 }
