@@ -3,6 +3,7 @@ import { observer } from "mobx-react-lite"
 import CloseIcon from "@mui/icons-material/Close"
 import { FiltersRow } from "./FiltersRow"
 import { store } from "../../stores/Store"
+import { filtersPanelStore } from "../../stores/FiltersPanelStore"
 
 export const FiltersPanel = observer(() => {
   return (
@@ -38,7 +39,7 @@ const Header = () => {
   return (
     <Box display="flex" alignItems="center" justifyContent="space-between" mb={3}>
       <Typography variant="h6">Filter</Typography>
-      <IconButton size="small" aria-label="close">
+      <IconButton size="small" aria-label="close" onClick={filtersPanelStore.close}>
         <CloseIcon />
       </IconButton>
     </Box>
