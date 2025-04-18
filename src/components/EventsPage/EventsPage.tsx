@@ -5,6 +5,8 @@ import { store } from "../../stores/Store";
 import { OnDemandEvents } from "./OnDemandEvents";
 import { filtersPanelStore } from "../../stores/FiltersPanelStore";
 import { observer } from "mobx-react-lite";
+import { FiltersPanel } from "../FIltersPanel/FiltersPanel";
+import { Overlay } from "../Overlay";
 
 export const EventsPage = observer(() => {
   const [selectedTab, setSelectedTab] = useState(0);
@@ -21,33 +23,32 @@ export const EventsPage = observer(() => {
     filtersPanelStore.close();
   }
 
+  const getFilteredEventsCount = () => selectedTab === 0 ? store.filteredUpcomingEvents.length : store.filteredOnDemandEvents.length;
+
   return (
     <Box>
-      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-        <Tabs value={selectedTab} onChange={handleChange}>
-          <Tab label="Upcoming" onClick={onTabChange} />
-          <Tab label="On Demand" onClick={onTabChange} />
-        </Tabs>
-      </Box>
+      <OverlayedFiltersPanel
+        isOpen={filtersPanelStore.isOpen}
+        filteredEventsCount={getFilteredEventsCount()} />
+      <Box>
+        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+          <Tabs value={selectedTab} onChange={handleChange}>
+            <Tab label="Upcoming" onClick={onTabChange} />
+            <Tab label="On Demand" onClick={onTabChange} />
+          </Tabs>
+        </Box>
 
-      <Box sx={{ mt: 2 }}>
-        {selectedTab === 0 && <UpcomingEvents />}
-        {selectedTab === 1 && <OnDemandEvents />}
+        <Box sx={{ mt: 2 }}>
+          {selectedTab === 0 && <UpcomingEvents />}
+          {selectedTab === 1 && <OnDemandEvents />}
+        </Box>
       </Box>
     </Box>
   )
 });
 
-const FiltersBackground = ({ onClick }: { onClick: () => void }) => {
-  return (
-    <Box
-      onClick={onClick}
-      sx={{
-        position: 'absolute',
-        width: '100%',
-        height: '100%',
-        backgroundColor: 'rgba(0, 0, 0, 0.5)',
-        zIndex: 1
-      }} />
-  )
-}
+const OverlayedFiltersPanel = ({ isOpen, filteredEventsCount }: { isOpen: boolean, filteredEventsCount: number }) => isOpen ? (
+  <Overlay onClick={filtersPanelStore.close}>
+    <FiltersPanel filteredEventsCount={filteredEventsCount} />
+  </Overlay>
+) : <></>;

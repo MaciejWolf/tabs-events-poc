@@ -4,7 +4,6 @@ import { Filter } from "../../types/Filter";
 import { useEffect } from "react";
 import { store } from "../../stores/Store";
 import { EventsList } from "./EventsList";
-import { FiltersPanel } from "../FIltersPanel/FiltersPanel";
 import { SelectedFilters } from "./SelectedFilters";
 import { filtersPanelStore } from "../../stores/FiltersPanelStore";
 
@@ -32,9 +31,7 @@ export const OnDemandEvents = observer(() => {
         <SelectedFilters />
         <EventsList events={store.filteredOnDemandEvents} />
       </Box>
-      {filtersPanelStore.isOpen 
-      ? (<FiltersPanel filteredEventsCount={store.filteredOnDemandEvents.length}/>) 
-      : (<Button onClick={filtersPanelStore.open}>Filters</Button>)}
+      {!filtersPanelStore.isOpen && (<Button onClick={filtersPanelStore.open}>Filters</Button>)}
     </Box>
   );
 });

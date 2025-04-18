@@ -1,4 +1,4 @@
-import { Box, Button, Divider, IconButton, Chip, Typography } from "@mui/material"
+import { Box, Button, Divider, IconButton, Chip, Typography, Paper } from "@mui/material"
 import { observer } from "mobx-react-lite"
 import CloseIcon from "@mui/icons-material/Close"
 import { FiltersRow } from "./FiltersRow"
@@ -11,16 +11,17 @@ type Props = {
 
 export const FiltersPanel = observer(({ filteredEventsCount}: Props) => {
   return (
-    <Box
-      width={300}
-      height="100%"
-      display="flex"
-      flexDirection="column"
-      justifyContent="space-between"
-      borderLeft={1}
-      borderColor="divider"
-      px={3}
-      py={2}
+    <Paper
+      sx = {{
+        width: 300,
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between",
+        borderLeft: 1,
+        borderColor: "divider",
+        px: 3,
+        py: 2,
+      }}
     >
       <Header />
       {store.categorisedFilters.map((category) => (
@@ -35,7 +36,7 @@ export const FiltersPanel = observer(({ filteredEventsCount}: Props) => {
         filteredEventsCount={filteredEventsCount}
         onApply={() => { }}
         onClearAll={() => store.clearFilters()} />
-    </Box>
+    </Paper>
   )
 })
 
