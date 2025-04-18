@@ -1,6 +1,5 @@
 import { Box, Chip, List, ListItem, ListItemText } from "@mui/material";
 import { observer } from "mobx-react-lite";
-import { store } from "../stores/Store";
 import { TrackmanEvent } from "../types/TrackmanEvent";
 
 const getLocationLabel = (event: TrackmanEvent): string => {
@@ -10,10 +9,10 @@ const getLocationLabel = (event: TrackmanEvent): string => {
   return `In person — ${event.location}`
 }
 
-export const EventsList = observer(() => {
+export const EventsList = observer(({ events }: { events: TrackmanEvent[] }) => {
   return (
     <List>
-      {store.filteredUpcomingEvents.map(event => (
+      {events.map(event => (
         <ListItem key={event.id} divider>
           <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
             <ListItemText

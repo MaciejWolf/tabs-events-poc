@@ -25,7 +25,8 @@ export const getTrackmanEvents = async (): Promise<TrackmanEvent[]> => {
       startDate: '2023-11-10T09:00:00Z',
       isPremium: false,
       locationType: 'online',
-      recordingReady: false
+      recordingReady: true,
+      recordingUrl: 'https://example.com/recording2',
     },
     {
       id: '4',
@@ -41,7 +42,8 @@ export const getTrackmanEvents = async (): Promise<TrackmanEvent[]> => {
       startDate: '2025-11-20T12:00:00Z',
       isPremium: true,
       locationType: 'online',
-      recordingReady: false
+      recordingReady: true,
+      recordingUrl: 'https://example.com/recording3',
     },
     {
       id: '6',
@@ -49,7 +51,8 @@ export const getTrackmanEvents = async (): Promise<TrackmanEvent[]> => {
       startDate: '2023-11-25T15:00:00Z',
       isPremium: false,
       locationType: 'online',
-      recordingReady: false
+      recordingReady: true,
+      recordingUrl: 'https://example.com/recording2',
     }
   ];
 
