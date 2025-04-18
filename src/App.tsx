@@ -1,4 +1,4 @@
-import { EventsPage } from './components/EventsPage'
+import { EventsPage } from './components/EventsPage/EventsPage'
 
 function App() {
 

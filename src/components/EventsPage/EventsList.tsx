@@ -1,5 +1,5 @@
 import { Box, Chip, List, ListItem, ListItemText } from "@mui/material";
-import { TrackmanEvent } from "../types/TrackmanEvent";
+import { TrackmanEvent } from "../../types/TrackmanEvent";
 
 const getLocationLabel = (event: TrackmanEvent): string => {
   if (event.locationType === "online") {

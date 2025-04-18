@@ -1,7 +1,7 @@
 import { Box, Tab, Tabs } from "@mui/material"
 import { useEffect, useState } from "react";
 import { UpcomingEvents } from "./UpcomingEvents";
-import { store } from "../stores/Store";
+import { store } from "../../stores/Store";
 import { OnDemandEvents } from "./OnDemandEvents";
 
 export const EventsPage = () => {
