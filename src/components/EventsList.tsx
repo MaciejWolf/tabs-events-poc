@@ -10,19 +10,20 @@ const getLocationLabel = (event: TrackmanEvent): string => {
 
 export const EventsList = ({ events }: { events: TrackmanEvent[] }) => {
   return (
-    <List>
-      {events.map(event => (
-        <ListItem key={event.id} divider>
-          <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-            <ListItemText
-              primary={event.name}
-              secondary={`${new Date(event.startDate).toLocaleString()} • ${getLocationLabel(event)}`}
-            />
-            {event.isPremium && <Chip label="Premium" color="warning" size="small" sx={{ marginLeft: 2 }} />}
-          </Box>
-        </ListItem>
-      ))}
-    </List>
+    <Box>
+      <List>
+        {events.map(event => (
+          <ListItem key={event.id} divider>
+            <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+              <ListItemText
+                primary={event.name}
+                secondary={`${new Date(event.startDate).toLocaleString()} • ${getLocationLabel(event)}`}
+              />
+              {event.isPremium && <Chip label="Premium" color="warning" size="small" sx={{ marginLeft: 2 }} />}
+            </Box>
+          </ListItem>
+        ))}
+      </List>
+    </Box>
   )
 };
-

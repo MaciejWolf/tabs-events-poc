@@ -1,4 +1,4 @@
-import { Box, CircularProgress, Typography } from "@mui/material";
+import { Box, Chip, CircularProgress, Typography } from "@mui/material";
 import { observer } from "mobx-react-lite";
 import { store } from "../stores/Store";
 import { EventsList } from "./EventsList";
@@ -32,6 +32,7 @@ export const UpcomingEvents = observer(() => {
     <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
       <Box>
         <Typography variant="h6" gutterBottom>Upcoming Events: {store.filteredUpcomingEvents.length}/{store.upcomingEvents.length}</Typography>
+        <SelectedFiltersRow />
         <EventsList events={store.filteredUpcomingEvents}/>
       </Box>
       <FiltersPanel />
@@ -39,3 +40,19 @@ export const UpcomingEvents = observer(() => {
   )
 });
 
+const SelectedFiltersRow = observer(() => {
+  if (store.appliedFilters.length === 0)
+    return <></>
+
+  return (
+    <Box mt={3} display="flex" flexWrap="wrap" gap={1}>
+      {store.appliedFilters.map((filter) => (
+        <Chip
+          label={filter.label}
+          onDelete={() => store.removeFilter(filter.key)}
+          color="warning"
+          size="small" />
+      ))}
+    </Box>
+  )
+})
