@@ -3,6 +3,7 @@ import { Box, Typography, Chip } from "@mui/material"
 type Props = {
   header: string,
   filters: {
+    key: string;
     label: string;
     isSelected: boolean;
     onClick: () => void;
