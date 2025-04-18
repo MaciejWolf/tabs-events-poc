@@ -17,23 +17,17 @@ export const FiltersPanel = observer(() => {
       px={3}
       py={2}
     >
-      <Box>
-        <Header />
-
-        {store.categorisedFilters.map((category) => (
-          <>
-            <Divider sx={{ mb: 3 }} />
-            <FiltersRow header={category.category} filters={category.filters} />
-          </>
-        ))}
-
-        <SelectedFiltersRow />
-      </Box>
-
+      <Header />
+      {store.categorisedFilters.map((category) => (
+        <>
+          <Divider sx={{ mb: 3 }} />
+          <FiltersRow header={category.category} filters={category.filters} />
+        </>
+      ))}
+      <SelectedFiltersRow />
       <ClearAllButton onClick={() => store.clearFilters()} />
-
       <Footer
-        filteredEventsCount={5}
+        filteredEventsCount={store.filteredUpcomingEvents.length}
         onApply={() => { }}
         onClearAll={() => store.clearFilters()} />
     </Box>
@@ -54,7 +48,7 @@ const Header = () => {
 const SelectedFiltersRow = observer(() => {
   if (store.appliedFilters.length === 0)
     return <></>
-  
+
   return (
     <Box mt={3} display="flex" flexWrap="wrap" gap={1}>
       {store.appliedFilters.map((filter) => (
@@ -69,7 +63,7 @@ const SelectedFiltersRow = observer(() => {
 })
 
 const ClearAllButton = observer(({ onClick }: { onClick: () => void }) => {
-  if (store.appliedFilters.length === 0) 
+  if (store.appliedFilters.length === 0)
     return <></>
 
   return (
