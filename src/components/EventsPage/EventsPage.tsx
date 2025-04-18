@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { UpcomingEvents } from "./UpcomingEvents";
 import { store } from "../../stores/Store";
 import { OnDemandEvents } from "./OnDemandEvents";
+import { filtersPanelStore } from "../../stores/FiltersPanelStore";
 
 export const EventsPage = () => {
   const [selectedTab, setSelectedTab] = useState(0);
@@ -14,12 +15,17 @@ export const EventsPage = () => {
     store.getTrackmanEvents()
   });
 
+  const onTabChange = () => {
+    store.clearFilters();
+    filtersPanelStore.close();
+  }
+
   return (
     <Box>
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
         <Tabs value={selectedTab} onChange={handleChange}>
-          <Tab label="Upcoming" onClick={() => store.clearFilters()} />
-          <Tab label="On Demand" onClick={() => store.clearFilters()} />
+          <Tab label="Upcoming" onClick={onTabChange} />
+          <Tab label="On Demand" onClick={onTabChange} />
         </Tabs>
       </Box>
 
