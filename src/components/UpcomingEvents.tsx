@@ -31,7 +31,7 @@ export const UpcomingEvents = observer(() => {
   return (
     <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
       <Box>
-        <Typography variant="h6" gutterBottom>Upcoming Events: {store.upcomingEvents.length}</Typography>
+        <Typography variant="h6" gutterBottom>Upcoming Events: {store.filteredUpcomingEvents.length}/{store.upcomingEvents.length}</Typography>
         <EventsList events={store.filteredUpcomingEvents}/>
       </Box>
       <FiltersPanel />

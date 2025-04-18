@@ -26,7 +26,7 @@ export const OnDemandEvents = observer(() => {
   return (
     <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
       <Box>
-        <Typography variant="h6" gutterBottom>Upcoming Events: {store.upcomingEvents.length}</Typography>
+        <Typography variant="h6" gutterBottom>On Demand Events: {store.filteredOnDemandEvents.length}/{store.onDemandEvents.length}</Typography>
         <EventsList events={store.filteredOnDemandEvents}/>
       </Box>
       <FiltersPanel />

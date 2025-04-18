@@ -14,7 +14,6 @@ export const EventsPage = () => {
     store.getTrackmanEvents()
   });
 
-
   return (
     <Box>
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
