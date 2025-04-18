@@ -17,13 +17,12 @@ const priceFilters: Filter[] = [
 ]
 
 export const UpcomingEvents = observer(() => {
-
   useEffect(() => {
     store.setFilters([
       { category: "Type", filters: typeFilters },
       { category: "Price", filters: priceFilters },
     ]);    
-  }, [store]);
+  }, []);
 
   if (store.isLoading) {
     return <CircularProgress />

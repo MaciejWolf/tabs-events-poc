@@ -9,6 +9,7 @@ class Store {
     makeAutoObservable(this);
   }
 
+  isLoaded: boolean = false;
   isLoading: boolean = true;
 
   upcomingEvents: TrackmanEvent[] = [];
@@ -20,6 +21,10 @@ class Store {
   appliedFilters: Filter[] = [];
 
   getTrackmanEvents = async () => {
+    if (this.isLoaded) {
+      return;
+    }
+
     this.isLoading = true;
     const response = await getTrackmanEvents();
 
@@ -34,6 +39,7 @@ class Store {
     this.refreshFilteredEvents();
 
     this.isLoading = false;
+    this.isLoaded = true;
   }
 
   categorisedFilters: { category: string; filters: Filter[] }[] = [];

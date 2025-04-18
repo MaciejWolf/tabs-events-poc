@@ -6,21 +6,21 @@ import { store } from "../stores/Store";
 
 export const EventsPage = () => {
   const [selectedTab, setSelectedTab] = useState(0);
-
-  useEffect(() => {
-    store.getTrackmanEvents()
-  }, [store]);
-
   const handleChange = (_event: React.SyntheticEvent, newValue: number) => {
     setSelectedTab(newValue)
   }
+
+  useEffect(() => {
+    store.getTrackmanEvents()
+  });
+
 
   return (
     <Box>
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
         <Tabs value={selectedTab} onChange={handleChange}>
-          <Tab label="Upcoming" />
-          <Tab label="On Demand" />
+          <Tab label="Upcoming" onClick={() => store.clearFilters()} />
+          <Tab label="On Demand" onClick={() => store.clearFilters()} />
         </Tabs>
       </Box>
 
