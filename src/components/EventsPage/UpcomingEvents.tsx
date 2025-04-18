@@ -1,4 +1,4 @@
-import { Box, CircularProgress, Typography } from "@mui/material";
+import { Box, Button, CircularProgress, Typography } from "@mui/material";
 import { observer } from "mobx-react-lite";
 import { store } from "../../stores/Store";
 import { EventsList } from "./EventsList";
@@ -6,6 +6,7 @@ import { FiltersPanel } from "../FIltersPanel/FiltersPanel";
 import { Filter } from "../../types/Filter";
 import { useEffect } from "react";
 import { SelectedFilters } from "./SelectedFilters";
+import { filtersPanelStore } from "../../stores/FiltersPanelStore";
 
 const typeFilters: Filter[] = [
   { key: 'in-person', category: 'type', label: "In person", isSatisfiedBy: (event) => event.locationType === "inPerson" },
@@ -36,7 +37,7 @@ export const UpcomingEvents = observer(() => {
         <SelectedFilters />
         <EventsList events={store.filteredUpcomingEvents}/>
       </Box>
-      <FiltersPanel />
+      {filtersPanelStore.isOpen ? (<FiltersPanel />) : (<Button onClick={filtersPanelStore.open}>Filters</Button>)}
     </Box>
   )
 });

@@ -1,4 +1,4 @@
-import { Box, CircularProgress, Typography } from "@mui/material";
+import { Box, Button, CircularProgress, Typography } from "@mui/material";
 import { observer } from "mobx-react-lite";
 import { Filter } from "../../types/Filter";
 import { useEffect } from "react";
@@ -6,6 +6,7 @@ import { store } from "../../stores/Store";
 import { EventsList } from "./EventsList";
 import { FiltersPanel } from "../FIltersPanel/FiltersPanel";
 import { SelectedFilters } from "./SelectedFilters";
+import { filtersPanelStore } from "../../stores/FiltersPanelStore";
 
 const priceFilters: Filter[] = [
   { key: 'free', category: 'price', label: "Free", isSatisfiedBy: (event) => event.isPremium === false },
@@ -20,18 +21,18 @@ export const OnDemandEvents = observer(() => {
     ]);
   }, []);
 
-    if (store.isLoading) {
-      return <CircularProgress />
-    }
+  if (store.isLoading) {
+    return <CircularProgress />
+  }
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
       <Box>
         <Typography variant="h6" gutterBottom>On Demand Events: {store.filteredOnDemandEvents.length}/{store.onDemandEvents.length}</Typography>
         <SelectedFilters />
-        <EventsList events={store.filteredOnDemandEvents}/>
+        <EventsList events={store.filteredOnDemandEvents} />
       </Box>
-      <FiltersPanel />
+      {filtersPanelStore.isOpen ? (<FiltersPanel />) : (<Button onClick={filtersPanelStore.open}>Filters</Button>)}
     </Box>
   );
 });
