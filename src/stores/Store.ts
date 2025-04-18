@@ -68,15 +68,23 @@ class Store {
   isFilterSelected = (key: string) => this.appliedFilters.some(filter => filter.key === key)
 
   private refreshFilteredEvents = () => {
-    const acceptEverything = () => true;
+    const categoryFilters = this.getCategoryFilters();
 
-    const groups = groupBy(this.appliedFilters, filter => filter.category);
+    this.filteredUpcomingEvents = this.upcomingEvents.filter(this.isSatisfiedByAllOf(categoryFilters));
+    this.filteredOnDemandEvents = this.onDemandEvents.filter(this.isSatisfiedByAllOf(categoryFilters));
+  }
 
-    const filtersWithinCategory = Object.entries(groups).map(([, filters]) =>
-      filters.length === 0 ? acceptEverything : this.isSatisfiedByAnyOf(filters.map(f => f.isSatisfiedBy)));
+  private getCategoryFilters = () => {
+    const filtersGroups = groupBy(this.appliedFilters, filter => filter.category);
+    return Object.entries(filtersGroups).map(([, filters]) => this.aggregateFiltersInCategory(filters));
+  }
 
-    this.filteredUpcomingEvents = this.upcomingEvents.filter(this.isSatisfiedByAllOf(filtersWithinCategory));
-    this.filteredOnDemandEvents = this.onDemandEvents.filter(this.isSatisfiedByAllOf(filtersWithinCategory));
+  private aggregateFiltersInCategory = (filters: Filter[]) => {
+    const acceptEverythingFilter = () => true;
+
+    return filters.length === 0 
+    ? acceptEverythingFilter 
+    : this.isSatisfiedByAnyOf(filters.map(filter => filter.isSatisfiedBy));
   }
 
   private isSatisfiedByAnyOf = (filters: ((event: TrackmanEvent) => boolean)[]) => (event: TrackmanEvent) => filters.some(filter => filter(event))
