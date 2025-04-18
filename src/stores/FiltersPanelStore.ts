@@ -5,7 +5,7 @@ export class FiltersPanelStore {
     makeAutoObservable(this);
   }
 
-  isOpen: boolean = true;
+  isOpen: boolean = false;
 
   close = () => this.isOpen = false;
   open = () => this.isOpen = true;
