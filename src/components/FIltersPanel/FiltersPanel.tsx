@@ -30,12 +30,12 @@ export const FiltersPanel = observer(() => {
         <SelectedFiltersRow />
       </Box>
 
-      <ClearAllButton onClick={() => { }} />
+      <ClearAllButton onClick={() => store.clearFilters()} />
 
       <Footer
         filteredEventsCount={5}
         onApply={() => { }}
-        onClearAll={() => { }} />
+        onClearAll={() => store.clearFilters()} />
     </Box>
   )
 })
