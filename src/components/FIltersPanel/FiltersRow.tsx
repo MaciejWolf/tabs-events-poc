@@ -1,31 +1,29 @@
 import { Box, Typography, Chip } from "@mui/material"
+import { store } from "../../stores/Store";
+import { Filter } from "../../types/Filter";
+import { observer } from "mobx-react-lite";
 
 type Props = {
   header: string,
-  filters: {
-    key: string;
-    label: string;
-    isSelected: boolean;
-    onClick: () => void;
-  }[]
+  filters: Filter[]
 }
 
-export const FiltersRow = ({ header, filters }: Props) => {
+export const FiltersRow = observer(({ header, filters }: Props) => {
   return (
     <Box>
       <Typography variant="subtitle2" gutterBottom>
         {header}
       </Typography>
       <Box display="flex" gap={1} flexWrap="wrap" mb={3}>
-        {filters.map((filter, index) => filter.isSelected ? (
-          <SelectedFilter key={index} label={filter.label} onClick={filter.onClick} />
+        {filters.map((filter) => store.isFilterSelected(filter.key) ? (
+          <SelectedFilter key={filter.key} label={filter.label} onClick={() => store.removeFilter(filter.key)} />
         ) : (
-          <NotSelectedFilter key={index} label={filter.label} onClick={filter.onClick} />
+          <NotSelectedFilter key={filter.key} label={filter.label} onClick={() => (store.addFilter(filter))} />
         ))}
       </Box>
     </Box>
   )
-}
+})
 
 const SelectedFilter = ({ label, onClick }: { label: string; onClick: () => void }) => (
   <Chip

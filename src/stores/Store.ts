@@ -36,9 +36,9 @@ class Store {
     this.isLoading = false;
   }
 
-  categorisedFilters: Record<string, Filter[]> = {};
+  categorisedFilters: { category: string; filters: Filter[] }[] = [];
 
-  setFilters = (categorisedFilters: Record<string, Filter[]>) => {
+  setFilters = (categorisedFilters: { category: string; filters: Filter[] }[]) => {
     this.categorisedFilters = categorisedFilters;
     this.appliedFilters = [];
   }
@@ -49,6 +49,7 @@ class Store {
   }
   addFilter = (filter: Filter) => {
     this.appliedFilters.push(filter);
+    this.appliedFilters = [...this.appliedFilters];
     this.refreshFilteredEvents();
   }
 
@@ -56,6 +57,8 @@ class Store {
     this.appliedFilters = this.appliedFilters.filter(filter => filter.key !== key);
     this.refreshFilteredEvents();
   }
+
+  isFilterSelected = (key: string) => this.appliedFilters.some(filter => filter.key === key)
 
   private refreshFilteredEvents = () => {
     const acceptEverything = () => true;

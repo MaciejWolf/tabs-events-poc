@@ -2,6 +2,7 @@ import { Box, Button, Divider, IconButton, Chip, Typography } from "@mui/materia
 import { observer } from "mobx-react-lite"
 import CloseIcon from "@mui/icons-material/Close"
 import { FiltersRow } from "./FiltersRow"
+import { store } from "../../stores/Store"
 
 export const FiltersPanel = observer(() => {
   return (
@@ -19,29 +20,22 @@ export const FiltersPanel = observer(() => {
       <Box>
         <Header />
 
-        <Divider sx={{ mb: 3 }} />
-
-        <FiltersRow header="TYPE" filters={[
-          { key: 'in-person', label: "In person", isSelected: true, onClick: () => { } },
-          { key: 'online', label: "Online", isSelected: false, onClick: () => { } },
-        ]} />
-
-        <Divider sx={{ mb: 3 }} />
-
-        <FiltersRow header="PRICE" filters={[
-          { key: 'free', label: "Free", isSelected: true, onClick: () => { } },
-          { key: 'paid', label: "Paid", isSelected: false, onClick: () => { } },
-        ]} />
+        {store.categorisedFilters.map((category) => (
+          <>
+            <Divider sx={{ mb: 3 }} />
+            <FiltersRow header={category.category} filters={category.filters} />
+          </>
+        ))}
 
         <SelectedFiltersRow />
       </Box>
 
-      <ClearAllButton onClick={() => {}}/>
+      <ClearAllButton onClick={() => { }} />
 
-      <Footer 
-        filteredEventsCount={5} 
-        onApply={() => {}} 
-        onClearAll={() => {}} />
+      <Footer
+        filteredEventsCount={5}
+        onApply={() => { }}
+        onClearAll={() => { }} />
     </Box>
   )
 })
@@ -57,35 +51,38 @@ const Header = () => {
   )
 }
 
-const SelectedFiltersRow = () => {
+const SelectedFiltersRow = observer(() => {
+  if (store.appliedFilters.length === 0)
+    return <></>
+  
+  return (
+    <Box mt={3} display="flex" flexWrap="wrap" gap={1}>
+      {store.appliedFilters.map((filter) => (
+        <Chip
+          label={filter.label}
+          onDelete={() => store.removeFilter(filter.key)}
+          color="warning"
+          size="small" />
+      ))}
+    </Box>
+  )
+})
+
+const ClearAllButton = observer(({ onClick }: { onClick: () => void }) => {
+  if (store.appliedFilters.length === 0) 
+    return <></>
+
   return (
     <Box mt={3} display="flex" flexWrap="wrap" gap={1}>
       <Chip
-        label="Free"
-        onDelete={() => { }}
-        color="warning"
+        label="Clear all"
+        clickable
+        variant="outlined"
         size="small"
-      />
-      <Chip
-        label="In-person"
-        onDelete={() => { }}
-        color="warning"
-        size="small"
-      />
+        onClick={onClick} />
     </Box>
   )
-}
-
-const ClearAllButton = ({ onClick }: { onClick: () => void }) => (
-  <Box mt={3} display="flex" flexWrap="wrap" gap={1}>
-    <Chip
-      label="Clear all"
-      clickable
-      variant="outlined"
-      size="small"
-      onClick={onClick} />
-  </Box>
-)
+})
 
 const Footer = ({
   filteredEventsCount,

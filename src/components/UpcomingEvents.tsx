@@ -19,10 +19,10 @@ const priceFilters: Filter[] = [
 export const UpcomingEvents = observer(() => {
 
   useEffect(() => {
-    store.setFilters({
-      type: typeFilters,
-      price: priceFilters,
-    });    
+    store.setFilters([
+      { category: "Type", filters: typeFilters },
+      { category: "Price", filters: priceFilters },
+    ]);    
   }, [store]);
 
   if (store.isLoading) {
