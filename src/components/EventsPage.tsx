@@ -1,8 +1,8 @@
-import { Box, Tab, Tabs, Typography } from "@mui/material"
-import { observer } from "mobx-react-lite";
+import { Box, Tab, Tabs } from "@mui/material"
 import { useEffect, useState } from "react";
 import { UpcomingEvents } from "./UpcomingEvents";
 import { store } from "../stores/Store";
+import { OnDemandEvents } from "./OnDemandEvents";
 
 export const EventsPage = () => {
   const [selectedTab, setSelectedTab] = useState(0);
@@ -33,6 +33,3 @@ export const EventsPage = () => {
   )
 }
 
-const OnDemandEvents = observer(() => {
-  return <Typography variant="h6">On Demand Events placeholder</Typography>
-});
