@@ -17,19 +17,19 @@ class Store {
   filteredUpcomingEvents: TrackmanEvent[] = [];
   filteredOnDemandEvents: TrackmanEvent[] = [];
 
-  filters: Filter[] = [];
+  appliedFilters: Filter[] = [];
 
   getTrackmanEvents = async () => {
     this.isLoading = true;
     const response = await getTrackmanEvents();
 
     this.upcomingEvents = response
-    .filter(event => new Date(event.startDate) > new Date())
-    .sort(byDate(event => event.startDate, 'DESCENDING'));
+      .filter(event => new Date(event.startDate) > new Date())
+      .sort(byDate(event => event.startDate, 'DESCENDING'));
 
     this.onDemandEvents = response
-    .filter(isOnlineEventWithRecording)
-    .sort(byDate(event => event.startDate, 'ASCENDING'));
+      .filter(isOnlineEventWithRecording)
+      .sort(byDate(event => event.startDate, 'ASCENDING'));
 
     this.refreshFilteredEvents();
 
@@ -37,21 +37,23 @@ class Store {
   }
 
   clearFilters = () => {
-    this.filters = [];
+    this.appliedFilters = [];
     this.refreshFilteredEvents();
   }
   addFilter = (filter: Filter) => {
-    this.filters.push(filter);
+    this.appliedFilters.push(filter);
     this.refreshFilteredEvents();
   }
 
   removeFilter = (key: string) => {
-    this.filters = this.filters.filter(filter => filter.key !== key);
+    this.appliedFilters = this.appliedFilters.filter(filter => filter.key !== key);
     this.refreshFilteredEvents();
   }
 
   private refreshFilteredEvents = () => {
-    const filters = this.filters.length > 0 ? this.filters.map(f => f.isSatisfiedBy) : [() => true];
+    const acceptEverything = () => true;
+
+    const filters = this.appliedFilters.length > 0 ? this.appliedFilters.map(f => f.isSatisfiedBy) : [acceptEverything];
 
     this.filteredUpcomingEvents = this.upcomingEvents.filter(this.isSatisfiedByAnyOf(filters));
     this.filteredOnDemandEvents = this.onDemandEvents.filter(this.isSatisfiedByAnyOf(filters));
