@@ -1,7 +1,7 @@
 import { Box, Chip, List, ListItem, ListItemText } from "@mui/material";
 import { observer } from "mobx-react-lite";
-import { store } from "./Store";
-import { TrackmanEvent } from "./TrackmanEvent";
+import { store } from "../stores/Store";
+import { TrackmanEvent } from "../types/TrackmanEvent";
 
 const getLocationLabel = (event: TrackmanEvent): string => {
   if (event.locationType === "online") {

@@ -1,8 +1,8 @@
 import { makeAutoObservable } from "mobx";
-import { byDate } from "./dataSorters";
-import { Filter } from "./Filter";
-import { getTrackmanEvents } from "./getTrackmanEvents";
-import { isOnlineEventWithRecording, TrackmanEvent } from "./TrackmanEvent";
+import { byDate } from "../utils/dataSorters";
+import { Filter } from "../types/Filter";
+import { getTrackmanEvents } from "../services/getTrackmanEvents";
+import { isOnlineEventWithRecording, TrackmanEvent } from "../types/TrackmanEvent";
 
 class Store {
   constructor() {

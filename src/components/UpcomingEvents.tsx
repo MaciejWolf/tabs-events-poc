@@ -1,6 +1,6 @@
 import { Box, CircularProgress, Typography } from "@mui/material";
 import { observer } from "mobx-react-lite";
-import { store } from "./Store";
+import { store } from "../stores/Store";
 import { EventsList } from "./EventsList";
 import { FiltersPanel } from "./FiltersPanel";
 

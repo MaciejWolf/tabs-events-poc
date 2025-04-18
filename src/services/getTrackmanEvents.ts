@@ -1,4 +1,4 @@
-import { TrackmanEvent } from "./TrackmanEvent";
+import { TrackmanEvent } from "../types/TrackmanEvent";
 
 export const getTrackmanEvents = async (): Promise<TrackmanEvent[]> => {
   const mockEvents: TrackmanEvent[] = [

@@ -2,7 +2,7 @@ import { Box, Tab, Tabs, Typography } from "@mui/material"
 import { observer } from "mobx-react-lite";
 import { useEffect, useState } from "react";
 import { UpcomingEvents } from "./UpcomingEvents";
-import { store } from "./Store";
+import { store } from "../stores/Store";
 
 export const EventsPage = () => {
   const [selectedTab, setSelectedTab] = useState(0);
