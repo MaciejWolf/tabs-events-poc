@@ -36,6 +36,13 @@ class Store {
     this.isLoading = false;
   }
 
+  categorisedFilters: Record<string, Filter[]> = {};
+
+  setFilters = (categorisedFilters: Record<string, Filter[]>) => {
+    this.categorisedFilters = categorisedFilters;
+    this.appliedFilters = [];
+  }
+
   clearFilters = () => {
     this.appliedFilters = [];
     this.refreshFilteredEvents();
