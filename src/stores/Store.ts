@@ -3,6 +3,7 @@ import { byDate } from "../utils/dataSorters";
 import { Filter } from "../types/Filter";
 import { getTrackmanEvents } from "../services/getTrackmanEvents";
 import { isOnlineEventWithRecording, TrackmanEvent } from "../types/TrackmanEvent";
+import { groupBy } from "../utils/groupBy";
 
 class Store {
   constructor() {
@@ -69,15 +70,18 @@ class Store {
   private refreshFilteredEvents = () => {
     const acceptEverything = () => true;
 
-    const filters = this.appliedFilters.length > 0 ? this.appliedFilters.map(f => f.isSatisfiedBy) : [acceptEverything];
+    const groups = groupBy(this.appliedFilters, filter => filter.category);
 
-    this.filteredUpcomingEvents = this.upcomingEvents.filter(this.isSatisfiedByAnyOf(filters));
-    this.filteredOnDemandEvents = this.onDemandEvents.filter(this.isSatisfiedByAnyOf(filters));
+    const filtersWithinCategory = Object.entries(groups).map(([, filters]) =>
+      filters.length === 0 ? acceptEverything : this.isSatisfiedByAnyOf(filters.map(f => f.isSatisfiedBy)));
+
+    this.filteredUpcomingEvents = this.upcomingEvents.filter(this.isSatisfiedByAllOf(filtersWithinCategory));
+    this.filteredOnDemandEvents = this.onDemandEvents.filter(this.isSatisfiedByAllOf(filtersWithinCategory));
   }
 
-  private isSatisfiedByAnyOf = (filters: ((event: TrackmanEvent) => boolean)[]) => (event: TrackmanEvent) => {
-    return filters.some(filter => filter(event));
-  }
+  private isSatisfiedByAnyOf = (filters: ((event: TrackmanEvent) => boolean)[]) => (event: TrackmanEvent) => filters.some(filter => filter(event))
+
+  private isSatisfiedByAllOf = (filters: ((event: TrackmanEvent) => boolean)[]) => (event: TrackmanEvent) => filters.every(filter => filter(event))
 }
 
 export const store = new Store();

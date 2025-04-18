@@ -7,13 +7,13 @@ import { Filter } from "../types/Filter";
 import { useEffect } from "react";
 
 const typeFilters: Filter[] = [
-  { key: 'in-person', label: "In person", isSatisfiedBy: (event) => event.locationType === "inPerson" },
-  { key: 'online', label: "Online", isSatisfiedBy: (event) => event.locationType === "online" },
+  { key: 'in-person', category: 'type', label: "In person", isSatisfiedBy: (event) => event.locationType === "inPerson" },
+  { key: 'online', category: 'type', label: "Online", isSatisfiedBy: (event) => event.locationType === "online" },
 ]
 
 const priceFilters: Filter[] = [
-  { key: 'free', label: "Free", isSatisfiedBy: (event) => event.isPremium === false },
-  { key: 'paid', label: "Paid", isSatisfiedBy: (event) => event.isPremium === true }
+  { key: 'free', category: 'price', label: "Free", isSatisfiedBy: (event) => event.isPremium === false },
+  { key: 'paid', category: 'price', label: "Paid", isSatisfiedBy: (event) => event.isPremium === true }
 ]
 
 export const UpcomingEvents = observer(() => {
