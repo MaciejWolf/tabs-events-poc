@@ -6,6 +6,7 @@ import { store } from "../../stores/Store";
 import { EventsList } from "./EventsList";
 import { SelectedFilters } from "./SelectedFilters";
 import { filtersPanelStore } from "../../stores/FiltersPanelStore";
+import { YouTubeVideoModal } from "../YouTubeVideoModal";
 
 const priceFilters: Filter[] = [
   { key: 'free', category: 'price', label: "Free", isSatisfiedBy: (event) => event.isPremium === false },
@@ -32,6 +33,8 @@ export const OnDemandEvents = observer(() => {
         <EventsList events={store.filteredOnDemandEvents} />
       </Box>
       {!filtersPanelStore.isOpen && (<Button onClick={filtersPanelStore.open}>Filters</Button>)}
+
+      <YouTubeVideoModal isModalOn={true} setIsModalOn={() => { }} modalData={{ videoLabel: 'Oh shit', videoId: 'KOaeDHeJ80I' }} />
     </Box>
   );
 });

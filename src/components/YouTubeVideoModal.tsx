@@ -4,7 +4,9 @@ import { YouTubeVideoPlayer } from "./YouTubeVideoPlayer";
 type Props = {
   isModalOn: boolean;
   setIsModalOn: (isModalOn: boolean) => void;
-  modalData: { [key: string]: string };
+  modalData: { 
+    videoId: string; 
+    videoLabel: string };
 };
 
 export const YouTubeVideoModal = ({ isModalOn, setIsModalOn, modalData }: Props) => {
