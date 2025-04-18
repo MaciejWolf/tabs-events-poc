@@ -32,7 +32,9 @@ export const OnDemandEvents = observer(() => {
         <SelectedFilters />
         <EventsList events={store.filteredOnDemandEvents} />
       </Box>
-      {filtersPanelStore.isOpen ? (<FiltersPanel />) : (<Button onClick={filtersPanelStore.open}>Filters</Button>)}
+      {filtersPanelStore.isOpen 
+      ? (<FiltersPanel filteredEventsCount={store.filteredOnDemandEvents.length}/>) 
+      : (<Button onClick={filtersPanelStore.open}>Filters</Button>)}
     </Box>
   );
 });

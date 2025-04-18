@@ -5,7 +5,11 @@ import { FiltersRow } from "./FiltersRow"
 import { store } from "../../stores/Store"
 import { filtersPanelStore } from "../../stores/FiltersPanelStore"
 
-export const FiltersPanel = observer(() => {
+type Props = {
+  filteredEventsCount: number
+}
+
+export const FiltersPanel = observer(({ filteredEventsCount}: Props) => {
   return (
     <Box
       width={300}
@@ -28,7 +32,7 @@ export const FiltersPanel = observer(() => {
       <SelectedFiltersRow />
       <ClearAllButton onClick={() => store.clearFilters()} />
       <Footer
-        filteredEventsCount={store.filteredUpcomingEvents.length}
+        filteredEventsCount={filteredEventsCount}
         onApply={() => { }}
         onClearAll={() => store.clearFilters()} />
     </Box>

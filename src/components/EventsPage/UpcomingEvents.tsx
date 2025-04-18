@@ -23,7 +23,7 @@ export const UpcomingEvents = observer(() => {
     store.setFilters([
       { category: "Type", filters: typeFilters },
       { category: "Price", filters: priceFilters },
-    ]);    
+    ]);
   }, []);
 
   if (store.isLoading) {
@@ -35,9 +35,11 @@ export const UpcomingEvents = observer(() => {
       <Box>
         <Typography variant="h6" gutterBottom>Upcoming Events: {store.filteredUpcomingEvents.length}/{store.upcomingEvents.length}</Typography>
         <SelectedFilters />
-        <EventsList events={store.filteredUpcomingEvents}/>
+        <EventsList events={store.filteredUpcomingEvents} />
       </Box>
-      {filtersPanelStore.isOpen ? (<FiltersPanel />) : (<Button onClick={filtersPanelStore.open}>Filters</Button>)}
+      {filtersPanelStore.isOpen
+        ? (<FiltersPanel filteredEventsCount={store.filteredUpcomingEvents.length} />)
+        : (<Button onClick={filtersPanelStore.open}>Filters</Button>)}
     </Box>
   )
 });
