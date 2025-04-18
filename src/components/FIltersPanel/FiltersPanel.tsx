@@ -1,6 +1,7 @@
 import { Box, Button, Divider, IconButton, Chip, Typography } from "@mui/material"
 import { observer } from "mobx-react-lite"
 import CloseIcon from "@mui/icons-material/Close"
+import { FiltersRow } from "./FiltersRow"
 
 export const FiltersPanel = observer(() => {
   return (
@@ -26,47 +27,17 @@ export const FiltersPanel = observer(() => {
 
         <Divider sx={{ mb: 3 }} />
 
-        {/* TYPE */}
-        <Typography variant="subtitle2" gutterBottom>
-          TYPE
-        </Typography>
-        <Box display="flex" gap={1} flexWrap="wrap" mb={3}>
-          <Chip
-            label="In-person"
-            clickable
-            variant="filled"
-            color="warning"
-            size="small"
-          />
-          <Chip
-            label="Online"
-            clickable
-            variant="outlined"
-            size="small"
-          />
-        </Box>
+        <FiltersRow header="TYPE" filters={[
+          { label: "In-person", isSelected: true, onClick: () => { } },
+          { label: "Online", isSelected: false, onClick: () => { } },
+        ]}/>
 
         <Divider sx={{ mb: 3 }} />
 
-        {/* PRICE */}
-        <Typography variant="subtitle2" gutterBottom>
-          PRICE
-        </Typography>
-        <Box display="flex" gap={1} flexWrap="wrap">
-          <Chip
-            label="Free"
-            clickable
-            variant="filled"
-            color="warning"
-            size="small"
-          />
-          <Chip
-            label="Paid"
-            clickable
-            variant="outlined"
-            size="small"
-          />
-        </Box>
+        <FiltersRow header="PRICE" filters={[
+          { label: "Free", isSelected: true, onClick: () => { } },
+          { label: "Paid", isSelected: false, onClick: () => { } },
+        ]}/>
 
         {/* Selected Filters */}
         <Box mt={3} display="flex" flexWrap="wrap" gap={1}>
