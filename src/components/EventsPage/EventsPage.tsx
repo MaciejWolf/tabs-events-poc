@@ -4,8 +4,9 @@ import { UpcomingEvents } from "./UpcomingEvents";
 import { store } from "../../stores/Store";
 import { OnDemandEvents } from "./OnDemandEvents";
 import { filtersPanelStore } from "../../stores/FiltersPanelStore";
+import { observer } from "mobx-react-lite";
 
-export const EventsPage = () => {
+export const EventsPage = observer(() => {
   const [selectedTab, setSelectedTab] = useState(0);
   const handleChange = (_event: React.SyntheticEvent, newValue: number) => {
     setSelectedTab(newValue)
@@ -33,8 +34,20 @@ export const EventsPage = () => {
         {selectedTab === 0 && <UpcomingEvents />}
         {selectedTab === 1 && <OnDemandEvents />}
       </Box>
-
     </Box>
   )
-}
+});
 
+const FiltersBackground = ({ onClick }: { onClick: () => void }) => {
+  return (
+    <Box
+      onClick={onClick}
+      sx={{
+        position: 'absolute',
+        width: '100%',
+        height: '100%',
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        zIndex: 1
+      }} />
+  )
+}
