@@ -1,5 +1,4 @@
 import { Box, Chip, List, ListItem, ListItemText } from "@mui/material";
-import { observer } from "mobx-react-lite";
 import { TrackmanEvent } from "../types/TrackmanEvent";
 
 const getLocationLabel = (event: TrackmanEvent): string => {
@@ -9,7 +8,7 @@ const getLocationLabel = (event: TrackmanEvent): string => {
   return `In person — ${event.location}`
 }
 
-export const EventsList = observer(({ events }: { events: TrackmanEvent[] }) => {
+export const EventsList = ({ events }: { events: TrackmanEvent[] }) => {
   return (
     <List>
       {events.map(event => (
@@ -25,5 +24,5 @@ export const EventsList = observer(({ events }: { events: TrackmanEvent[] }) => 
       ))}
     </List>
   )
-});
+};
 
