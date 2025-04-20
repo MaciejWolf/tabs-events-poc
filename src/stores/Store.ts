@@ -2,7 +2,7 @@ import { makeAutoObservable } from "mobx";
 import { byDate } from "../utils/dataSorters";
 import { Filter } from "../types/Filter";
 import { getTrackmanEvents } from "../services/getTrackmanEvents";
-import { isOnDemandEvent, TrackmanEvent } from "../types/TrackmanEvent";
+import { isOnDemandEvent, isUpcomingEvent, TrackmanEvent, UpcomingEvent } from "../types/TrackmanEvent";
 import { groupBy } from "../utils/groupBy";
 
 class Store {
@@ -13,10 +13,10 @@ class Store {
   isLoaded: boolean = false;
   isLoading: boolean = true;
 
-  upcomingEvents: TrackmanEvent[] = [];
+  upcomingEvents: UpcomingEvent[] = [];
   onDemandEvents: TrackmanEvent[] = [];
 
-  filteredUpcomingEvents: TrackmanEvent[] = [];
+  filteredUpcomingEvents: UpcomingEvent[] = [];
   filteredOnDemandEvents: TrackmanEvent[] = [];
 
   appliedFilters: Filter[] = [];
@@ -30,6 +30,7 @@ class Store {
     const response = await getTrackmanEvents();
 
     this.upcomingEvents = response
+      .filter(isUpcomingEvent)
       .filter(event => new Date(event.startDate) > new Date())
       .sort(byDate(event => event.startDate, 'DESCENDING'));
 
