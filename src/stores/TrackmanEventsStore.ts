@@ -4,10 +4,10 @@ import { Filter } from "../types/Filter";
 import { TrackmanEvent, isOnlineEventWithRecording } from "../types/TrackmanEvent";
 import { byDate } from "../utils/dataSorters";
 import { groupBy } from "../utils/groupBy";
-import { filtersStore } from "./FiltersStore";
+import { FiltersStore } from "./FiltersStore";
 
-class TrackmanEventsStore {
-  constructor() {
+export class TrackmanEventsStore {
+  constructor(private readonly filtersStore: FiltersStore) {
     makeAutoObservable(this);
   }
 
@@ -50,7 +50,7 @@ class TrackmanEventsStore {
   }
 
   private selectedFiltersGroupedByCategory = () => {
-    const filtersGroups = groupBy(filtersStore.appliedFilters, filter => filter.category);
+    const filtersGroups = groupBy(this.filtersStore.appliedFilters, filter => filter.category);
     return Object.entries(filtersGroups).map(([, filters]) => this.toCategoryFilter(filters));
   }
 
@@ -66,5 +66,3 @@ class TrackmanEventsStore {
 
   private isSatisfiedByAllOf = (filters: ((event: TrackmanEvent) => boolean)[]) => (event: TrackmanEvent) => filters.every(filter => filter(event))
 }
-
-export const trackmanEventsStore = new TrackmanEventsStore();

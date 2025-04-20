@@ -1,7 +1,7 @@
 import { makeAutoObservable } from "mobx";
 import { Filter } from "../types/Filter";
 
-class FiltersStore {
+export class FiltersStore {
   constructor() {
     makeAutoObservable(this);
   }
@@ -29,5 +29,3 @@ class FiltersStore {
 
   isFilterSelected = (key: string) => this.appliedFilters.some(filter => filter.key === key)
 }
-
-export const filtersStore = new FiltersStore();
