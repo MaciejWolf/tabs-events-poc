@@ -21,11 +21,13 @@ export type InPersonEvent = BaseEvent & {
   location: string;
 };
 
-export type TrackmanEvent = (
-  | OnDemandEvent
+export type UpcomingEvent =
   | OnlineEvent
   | InPersonEvent
-);
+
+export type TrackmanEvent =
+  | UpcomingEvent
+  | OnDemandEvent
 
 export function isOnlineEvent(event: TrackmanEvent): event is OnlineEvent {
   return event.locationType === 'online' && event.recordingReady === false;
@@ -37,4 +39,8 @@ export function isOnDemandEvent(event: TrackmanEvent): event is OnDemandEvent {
 
 export function isInPersonEvent(event: TrackmanEvent): event is InPersonEvent {
   return event.locationType === 'inPerson';
+}
+
+export function isUpcomingEvent(event: TrackmanEvent): event is UpcomingEvent {
+  return isInPersonEvent(event) || isOnlineEvent(event);
 }
