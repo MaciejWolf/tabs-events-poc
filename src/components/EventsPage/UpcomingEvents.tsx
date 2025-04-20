@@ -8,13 +8,13 @@ import { SelectedFilters } from "./SelectedFilters";
 import { filtersPanelStore } from "../../stores/FiltersPanelStore";
 
 const typeFilters: Filter[] = [
-  { key: 'in-person', category: 'type', label: "In person", isSatisfiedBy: (event) => event.locationType === "inPerson" },
-  { key: 'online', category: 'type', label: "Online", isSatisfiedBy: (event) => event.locationType === "online" },
+  { key: 'in-person', category: 'type', label: "In person", apply: (event) => event.locationType === "inPerson" },
+  { key: 'online', category: 'type', label: "Online", apply: (event) => event.locationType === "online" },
 ]
 
 const priceFilters: Filter[] = [
-  { key: 'free', category: 'price', label: "Free", isSatisfiedBy: (event) => event.isPremium === false },
-  { key: 'paid', category: 'price', label: "Paid", isSatisfiedBy: (event) => event.isPremium === true }
+  { key: 'free', category: 'price', label: "Free", apply: (event) => event.isPremium === false },
+  { key: 'paid', category: 'price', label: "Paid", apply: (event) => event.isPremium === true }
 ]
 
 export const UpcomingEvents = observer(() => {

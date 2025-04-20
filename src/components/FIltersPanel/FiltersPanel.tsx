@@ -31,11 +31,8 @@ export const FiltersPanel = observer(({ filteredEventsCount}: Props) => {
         </>
       ))}
       <SelectedFiltersRow />
-      <ClearAllButton onClick={() => store.clearFilters()} />
-      <Footer
-        filteredEventsCount={filteredEventsCount}
-        onApply={() => { }}
-        onClearAll={() => store.clearFilters()} />
+      <ClearAllButton />
+      <Footer filteredEventsCount={filteredEventsCount} />
     </Paper>
   )
 })
@@ -68,7 +65,7 @@ const SelectedFiltersRow = observer(() => {
   )
 })
 
-const ClearAllButton = observer(({ onClick }: { onClick: () => void }) => {
+const ClearAllButton = () => {
   if (store.appliedFilters.length === 0)
     return <></>
 
@@ -79,30 +76,26 @@ const ClearAllButton = observer(({ onClick }: { onClick: () => void }) => {
         clickable
         variant="outlined"
         size="small"
-        onClick={onClick} />
+        onClick={store.clearFilters} />
     </Box>
   )
-})
+}
 
 const Footer = ({
-  filteredEventsCount,
-  onClearAll,
-  onApply
+  filteredEventsCount
 }: {
-  filteredEventsCount: number,
-  onClearAll: () => void,
-  onApply: () => void
+  filteredEventsCount: number
 }) => {
   return (
     <Box mt={4} display="flex" justifyContent="space-between">
-      <Button variant="outlined" size="small" onClick={onClearAll}>
+      <Button variant="outlined" size="small" onClick={store.clearFilters}>
         Clear all
       </Button>
       <Button
         variant="contained"
         size="small"
         color="warning"
-        onClick={onApply}
+        onClick={filtersPanelStore.close}
       >
         Apply [{filteredEventsCount} results]
       </Button>

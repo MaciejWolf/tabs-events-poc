@@ -10,8 +10,8 @@ import { YouTubeVideoModal } from "../YouTubeVideoModal";
 import { youTubeVideoStore } from "../../stores/YouTubeVideoStore";
 
 const priceFilters: Filter[] = [
-  { key: 'free', category: 'price', label: "Free", isSatisfiedBy: (event) => event.isPremium === false },
-  { key: 'paid', category: 'price', label: "Paid", isSatisfiedBy: (event) => event.isPremium === true }
+  { key: 'free', category: 'price', label: "Free", apply: (event) => event.isPremium === false },
+  { key: 'paid', category: 'price', label: "Paid", apply: (event) => event.isPremium === true }
 ]
 
 export const OnDemandEvents = observer(() => {

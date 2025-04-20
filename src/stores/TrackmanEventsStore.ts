@@ -1,11 +1,12 @@
 import { makeAutoObservable } from "mobx";
-import { byDate } from "../utils/dataSorters";
-import { Filter } from "../types/Filter";
 import { getTrackmanEvents } from "../services/getTrackmanEvents";
-import { isOnlineEventWithRecording, TrackmanEvent } from "../types/TrackmanEvent";
+import { Filter } from "../types/Filter";
+import { TrackmanEvent, isOnlineEventWithRecording } from "../types/TrackmanEvent";
+import { byDate } from "../utils/dataSorters";
 import { groupBy } from "../utils/groupBy";
+import { filtersStore } from "./FiltersStore";
 
-class Store {
+class TrackmanEventsStore {
   constructor() {
     makeAutoObservable(this);
   }
@@ -18,8 +19,6 @@ class Store {
 
   filteredUpcomingEvents: TrackmanEvent[] = [];
   filteredOnDemandEvents: TrackmanEvent[] = [];
-
-  appliedFilters: Filter[] = [];
 
   getTrackmanEvents = async () => {
     if (this.isLoaded) {
@@ -43,43 +42,19 @@ class Store {
     this.isLoaded = true;
   }
 
-  categorisedFilters: { category: string; filters: Filter[] }[] = [];
-
-  setFilters = (categorisedFilters: { category: string; filters: Filter[] }[]) => {
-    this.categorisedFilters = categorisedFilters;
-    this.appliedFilters = [];
-  }
-
-  clearFilters = () => {
-    this.appliedFilters = [];
-    this.refreshFilteredEvents();
-  }
-  addFilter = (filter: Filter) => {
-    this.appliedFilters.push(filter);
-    this.appliedFilters = [...this.appliedFilters];
-    this.refreshFilteredEvents();
-  }
-
-  removeFilter = (key: string) => {
-    this.appliedFilters = this.appliedFilters.filter(filter => filter.key !== key);
-    this.refreshFilteredEvents();
-  }
-
-  isFilterSelected = (key: string) => this.appliedFilters.some(filter => filter.key === key)
-
   private refreshFilteredEvents = () => {
-    const categoryFilters = this.getCategoryFilters();
+    const categoryFilters = this.selectedFiltersGroupedByCategory();
 
     this.filteredUpcomingEvents = this.upcomingEvents.filter(this.isSatisfiedByAllOf(categoryFilters));
     this.filteredOnDemandEvents = this.onDemandEvents.filter(this.isSatisfiedByAllOf(categoryFilters));
   }
 
-  private getCategoryFilters = () => {
-    const filtersGroups = groupBy(this.appliedFilters, filter => filter.category);
-    return Object.entries(filtersGroups).map(([, filters]) => this.aggregateFiltersInCategory(filters));
+  private selectedFiltersGroupedByCategory = () => {
+    const filtersGroups = groupBy(filtersStore.appliedFilters, filter => filter.category);
+    return Object.entries(filtersGroups).map(([, filters]) => this.toCategoryFilter(filters));
   }
 
-  private aggregateFiltersInCategory = (filters: Filter[]) => {
+  private toCategoryFilter = (filters: Filter[]) => {
     const acceptEverythingFilter = () => true;
 
     return filters.length === 0 
@@ -92,4 +67,4 @@ class Store {
   private isSatisfiedByAllOf = (filters: ((event: TrackmanEvent) => boolean)[]) => (event: TrackmanEvent) => filters.every(filter => filter(event))
 }
 
-export const store = new Store();
+export const trackmanEventsStore = new TrackmanEventsStore();
