@@ -2,7 +2,7 @@ import { makeAutoObservable } from "mobx";
 import { byDate } from "../utils/dataSorters";
 import { Filter } from "../types/Filter";
 import { getTrackmanEvents } from "../services/getTrackmanEvents";
-import { isOnlineEventWithRecording, TrackmanEvent } from "../types/TrackmanEvent";
+import { isOnDemandEvent, TrackmanEvent } from "../types/TrackmanEvent";
 import { groupBy } from "../utils/groupBy";
 
 class Store {
@@ -34,7 +34,7 @@ class Store {
       .sort(byDate(event => event.startDate, 'DESCENDING'));
 
     this.onDemandEvents = response
-      .filter(isOnlineEventWithRecording)
+      .filter(isOnDemandEvent)
       .sort(byDate(event => event.startDate, 'ASCENDING'));
 
     this.refreshFilteredEvents();

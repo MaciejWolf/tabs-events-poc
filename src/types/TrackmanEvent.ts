@@ -5,13 +5,13 @@ type BaseEvent = {
   isPremium: boolean;
 };
 
-export type OnlineEventWithRecording = BaseEvent & {
+export type OnDemandEvent = BaseEvent & {
   locationType: 'online';
   recordingReady: true;
   recordingUrl: string;
 };
 
-export type OnlineEventWithoutRecording = BaseEvent & {
+export type OnlineEvent = BaseEvent & {
   locationType: 'online';
   recordingReady: false;
 };
@@ -22,21 +22,17 @@ export type InPersonEvent = BaseEvent & {
 };
 
 export type TrackmanEvent = (
-  | OnlineEventWithRecording
-  | OnlineEventWithoutRecording
+  | OnDemandEvent
+  | OnlineEvent
   | InPersonEvent
 );
 
-export function isOnlineEvent(event: TrackmanEvent): event is (OnlineEventWithRecording | OnlineEventWithoutRecording) {
-  return event.locationType === 'online';
-}
-
-export function isOnlineEventWithRecording(event: TrackmanEvent): event is OnlineEventWithRecording {
-  return event.locationType === 'online' && event.recordingReady === true;
-}
-
-export function isOnlineEventWithoutRecording(event: TrackmanEvent): event is OnlineEventWithoutRecording {
+export function isOnlineEvent(event: TrackmanEvent): event is OnlineEvent {
   return event.locationType === 'online' && event.recordingReady === false;
+}
+
+export function isOnDemandEvent(event: TrackmanEvent): event is OnDemandEvent {
+  return event.locationType === 'online' && event.recordingReady === true;
 }
 
 export function isInPersonEvent(event: TrackmanEvent): event is InPersonEvent {
