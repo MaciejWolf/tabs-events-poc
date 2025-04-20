@@ -31,7 +31,6 @@ class Store {
 
     this.upcomingEvents = response
       .filter(isUpcomingEvent)
-      .filter(event => new Date(event.startDate) > new Date())
       .sort(byDate(event => event.startDate, 'DESCENDING'));
 
     this.onDemandEvents = response

@@ -41,6 +41,10 @@ export function isInPersonEvent(event: TrackmanEvent): event is InPersonEvent {
   return event.locationType === 'inPerson';
 }
 
+// export function isUpcomingEvent(event: TrackmanEvent): event is UpcomingEvent {
+//   return isInPersonEvent(event) || isOnlineEvent(event);
+// }
+
 export function isUpcomingEvent(event: TrackmanEvent): event is UpcomingEvent {
-  return isInPersonEvent(event) || isOnlineEvent(event);
+  return (new Date(event.startDate) > new Date()) && (isInPersonEvent(event) || isOnlineEvent(event));
 }
