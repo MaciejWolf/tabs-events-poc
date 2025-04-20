@@ -1,5 +1,6 @@
-import { Box, Chip, List, ListItem, ListItemText } from "@mui/material";
+import { Box, Button, Chip, List, ListItem, ListItemText } from "@mui/material";
 import { isUpcomingEvent, OnDemandEvent, TrackmanEvent, UpcomingEvent } from "../../types/TrackmanEvent";
+import { youTubeVideoStore } from "../../stores/YouTubeVideoStore";
 
 const getLocationLabel = (event: TrackmanEvent): string => {
   if (event.locationType === "online") {
@@ -34,10 +35,18 @@ const UpcomingEventRow = ({ event }: { event: UpcomingEvent }) =>
 
 const OnDemandEventRow = ({ event }: { event: OnDemandEvent }) =>
   <ListItem key={event.id} divider>
-    <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+    <Box sx={{ display: 'flex', justifyContent: 'space-between' }} onClick={() => youTubeVideoStore.video = { videoLabel: event.name, videoId: event.recordingUrl }}>
+      <Button
+        variant="text"
+        color="primary"
+        size="small"
+        sx={{ marginRight: 2 }}
+        onClick={() => youTubeVideoStore.video = { videoLabel: event.name, videoId: event.recordingUrl }}>
+        Watch Now
+      </Button>
       <ListItemText
         primary={event.name}
-        secondary={`${new Date(event.startDate).toLocaleString()} • ${getLocationLabel(event)}`}
+        secondary={`${new Date(event.startDate).toLocaleString()}`}
       />
       {event.isPremium && <Chip label="Premium" color="warning" size="small" sx={{ marginLeft: 2 }} />}
     </Box>

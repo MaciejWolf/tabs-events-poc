@@ -35,7 +35,10 @@ export const OnDemandEvents = observer(() => {
       </Box>
       {!filtersPanelStore.isOpen && (<Button onClick={filtersPanelStore.open}>Filters</Button>)}
 
-      {youTubeVideoStore.isOpen() && (<YouTubeVideoModal isModalOn={youTubeVideoStore.isOpen()} onClose={youTubeVideoStore.close} modalData={youTubeVideoStore.video!} />)}
+      {youTubeVideoStore.isOpen() && (<YouTubeVideoModal
+        isModalOn={youTubeVideoStore.isOpen()}
+        onClose={youTubeVideoStore.close}
+        modalData={youTubeVideoStore.video!} />)}
     </Box>
   );
 });
