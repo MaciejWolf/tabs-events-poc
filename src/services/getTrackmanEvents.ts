@@ -42,8 +42,7 @@ export const getTrackmanEvents = async (): Promise<TrackmanEvent[]> => {
       startDate: '2025-11-20T12:00:00Z',
       isPremium: true,
       locationType: 'online',
-      recordingReady: true,
-      recordingUrl: 'https://example.com/recording3',
+      recordingReady: false
     },
     {
       id: '6',

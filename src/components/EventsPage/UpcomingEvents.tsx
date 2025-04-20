@@ -6,10 +6,11 @@ import { Filter } from "../../types/Filter";
 import { useEffect } from "react";
 import { SelectedFilters } from "./SelectedFilters";
 import { filtersPanelStore } from "../../stores/FiltersPanelStore";
+import { isInPersonEvent, isOnlineEvent } from "../../types/TrackmanEvent";
 
 const typeFilters: Filter[] = [
-  { key: 'in-person', category: 'type', label: "In person", apply: (event) => event.locationType === "inPerson" },
-  { key: 'online', category: 'type', label: "Online", apply: (event) => event.locationType === "online" },
+  { key: 'in-person', category: 'type', label: "In person", apply: isInPersonEvent },
+  { key: 'online', category: 'type', label: "Online", apply: isOnlineEvent },
 ]
 
 const priceFilters: Filter[] = [
