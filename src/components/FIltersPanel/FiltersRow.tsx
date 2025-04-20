@@ -15,11 +15,10 @@ export const FiltersRow = observer(({ header, filters }: Props) => {
         {header}
       </Typography>
       <Box display="flex" gap={1} flexWrap="wrap" mb={3}>
-        {filters.map((filter) => store.isFilterSelected(filter.key) ? (
-          <SelectedFilter key={filter.key} label={filter.label} onClick={() => store.removeFilter(filter.key)} />
-        ) : (
-          <NotSelectedFilter key={filter.key} label={filter.label} onClick={() => (store.addFilter(filter))} />
-        ))}
+        {filters.map((filter) => store.isFilterSelected(filter.key)
+          ? (<SelectedFilter key={filter.key} label={filter.label} onClick={() => store.removeFilter(filter.key)} />)
+          : (<NotSelectedFilter key={filter.key} label={filter.label} onClick={() => (store.addFilter(filter))} />)
+        )}
       </Box>
     </Box>
   )

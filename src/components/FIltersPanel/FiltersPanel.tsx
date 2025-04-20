@@ -25,10 +25,10 @@ export const FiltersPanel = observer(({ filteredEventsCount}: Props) => {
     >
       <Header />
       {store.categorisedFilters.map((category) => (
-        <>
+        <Box key={category.category}>
           <Divider sx={{ mb: 3 }} />
           <FiltersRow header={category.category} filters={category.filters} />
-        </>
+        </Box>
       ))}
       <SelectedFiltersRow />
       <ClearAllButton />
@@ -56,6 +56,7 @@ const SelectedFiltersRow = observer(() => {
     <Box mt={3} display="flex" flexWrap="wrap" gap={1}>
       {store.appliedFilters.map((filter) => (
         <Chip
+          key={filter.key}
           label={filter.label}
           onDelete={() => store.removeFilter(filter.key)}
           color="warning"
