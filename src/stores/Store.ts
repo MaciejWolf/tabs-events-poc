@@ -1,8 +1,8 @@
 import { makeAutoObservable } from "mobx";
-import { byDate } from "../utils/dataSorters";
+import { byDate as compareByDate } from "../utils/dataSorters";
 import { Filter } from "../types/Filter";
 import { getTrackmanEvents } from "../services/getTrackmanEvents";
-import { isOnDemandEvent, isUpcomingEvent, TrackmanEvent, UpcomingEvent } from "../types/TrackmanEvent";
+import { isOnDemandEvent, isUpcomingEvent, OnDemandEvent, TrackmanEvent, UpcomingEvent } from "../types/TrackmanEvent";
 import { groupBy } from "../utils/groupBy";
 
 class Store {
@@ -14,10 +14,10 @@ class Store {
   isLoading: boolean = true;
 
   upcomingEvents: UpcomingEvent[] = [];
-  onDemandEvents: TrackmanEvent[] = [];
+  onDemandEvents: OnDemandEvent[] = [];
 
   filteredUpcomingEvents: UpcomingEvent[] = [];
-  filteredOnDemandEvents: TrackmanEvent[] = [];
+  filteredOnDemandEvents: OnDemandEvent[] = [];
 
   appliedFilters: Filter[] = [];
 
@@ -31,11 +31,11 @@ class Store {
 
     this.upcomingEvents = response
       .filter(isUpcomingEvent)
-      .sort(byDate(event => event.startDate, 'DESCENDING'));
+      .sort(compareByDate(event => event.startDate, 'DESCENDING'));
 
     this.onDemandEvents = response
       .filter(isOnDemandEvent)
-      .sort(byDate(event => event.startDate, 'ASCENDING'));
+      .sort(compareByDate(event => event.startDate, 'ASCENDING'));
 
     this.refreshFilteredEvents();
 
@@ -70,8 +70,8 @@ class Store {
   private refreshFilteredEvents = () => {
     const categoryFilters = this.getCategoryFilters();
 
-    this.filteredUpcomingEvents = this.upcomingEvents.filter(this.isSatisfiedByAllOf(categoryFilters));
-    this.filteredOnDemandEvents = this.onDemandEvents.filter(this.isSatisfiedByAllOf(categoryFilters));
+    this.filteredUpcomingEvents = this.upcomingEvents.filter(this.isAcceptedByAllFilters(categoryFilters));
+    this.filteredOnDemandEvents = this.onDemandEvents.filter(this.isAcceptedByAllFilters(categoryFilters));
   }
 
   private getCategoryFilters = () => {
@@ -80,16 +80,16 @@ class Store {
   }
 
   private aggregateFiltersInCategory = (filters: Filter[]) => {
-    const acceptEverythingFilter = () => true;
+    const acceptEverything = () => true;
 
     return filters.length === 0 
-    ? acceptEverythingFilter 
-    : this.isSatisfiedByAnyOf(filters.map(filter => filter.apply));
+    ? acceptEverything
+    : this.isAcceptedByAnyFilter(filters);
   }
 
-  private isSatisfiedByAnyOf = (filters: ((event: TrackmanEvent) => boolean)[]) => (event: TrackmanEvent) => filters.some(filter => filter(event))
+  private isAcceptedByAnyFilter = (filters: Filter[]) => (event: TrackmanEvent) => filters.some(filter => filter.apply(event))
 
-  private isSatisfiedByAllOf = (filters: ((event: TrackmanEvent) => boolean)[]) => (event: TrackmanEvent) => filters.every(filter => filter(event))
+  private isAcceptedByAllFilters = (filters: Array<((event: TrackmanEvent) => boolean)>) => (event: TrackmanEvent) => filters.every(filter => filter(event))
 }
 
 export const store = new Store();

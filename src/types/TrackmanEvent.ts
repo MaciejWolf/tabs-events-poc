@@ -29,22 +29,18 @@ export type TrackmanEvent =
   | UpcomingEvent
   | OnDemandEvent
 
+export function isUpcomingEvent(event: TrackmanEvent): event is UpcomingEvent {
+  return (new Date(event.startDate) > new Date());
+}
+
 export function isOnlineEvent(event: TrackmanEvent): event is OnlineEvent {
-  return event.locationType === 'online' && event.recordingReady === false;
+  return isUpcomingEvent(event) && event.locationType === 'online' && event.recordingReady === false;
+}
+
+export function isInPersonEvent(event: TrackmanEvent): event is InPersonEvent {
+  return isUpcomingEvent(event) && event.locationType === 'inPerson';
 }
 
 export function isOnDemandEvent(event: TrackmanEvent): event is OnDemandEvent {
   return event.locationType === 'online' && event.recordingReady === true;
-}
-
-export function isInPersonEvent(event: TrackmanEvent): event is InPersonEvent {
-  return event.locationType === 'inPerson';
-}
-
-// export function isUpcomingEvent(event: TrackmanEvent): event is UpcomingEvent {
-//   return isInPersonEvent(event) || isOnlineEvent(event);
-// }
-
-export function isUpcomingEvent(event: TrackmanEvent): event is UpcomingEvent {
-  return (new Date(event.startDate) > new Date()) && (isInPersonEvent(event) || isOnlineEvent(event));
 }
