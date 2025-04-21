@@ -3,7 +3,7 @@ import { YouTubeVideoPlayer } from "./YouTubeVideoPlayer";
 
 type Props = {
   isModalOn: boolean;
-  onClose: (isModalOn: boolean) => void;
+  onClose: () => void;
   modalData: { 
     videoId: string; 
     videoLabel: string };
@@ -13,7 +13,7 @@ export const YouTubeVideoModal = ({ isModalOn, onClose, modalData }: Props) => {
   return (
     <Modal 
       open={isModalOn}
-      onClose={() => onClose(false)} 
+      onClose={onClose} 
       sx={{
         display: "flex",
         justifyContent: "center",
