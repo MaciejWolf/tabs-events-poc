@@ -11,5 +11,3 @@ export class YouTubeVideoStore {
 
   close = () => this.video = null;
 }
-
-export const youTubeVideoStore = new YouTubeVideoStore();

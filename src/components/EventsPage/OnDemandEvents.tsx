@@ -6,7 +6,6 @@ import { store } from "../../stores/Store";
 import { EventsList } from "./EventsList";
 import { SelectedFilters } from "./SelectedFilters";
 import { YouTubeVideoModal } from "../YouTubeVideoModal";
-import { youTubeVideoStore } from "../../stores/YouTubeVideoStore";
 import { useStores } from "../../stores/useStores";
 
 const priceFilters: Filter[] = [
@@ -15,7 +14,7 @@ const priceFilters: Filter[] = [
 ]
 
 export const OnDemandEvents = observer(() => {
-  const { filtersPanelStore } = useStores();
+  const { filtersPanelStore, youTubeVideoStore } = useStores();
 
   useEffect(() => {
     store.setFilters([

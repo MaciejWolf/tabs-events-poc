@@ -26,7 +26,7 @@ export const getTrackmanEvents = async (): Promise<TrackmanEvent[]> => {
       isPremium: false,
       locationType: 'online',
       recordingReady: true,
-      recordingUrl: 'KOaeDHeJ80I',
+      recordingUrl: 'kbgIlrcMUTU',
     },
     {
       id: '4',
@@ -51,7 +51,7 @@ export const getTrackmanEvents = async (): Promise<TrackmanEvent[]> => {
       isPremium: false,
       locationType: 'online',
       recordingReady: true,
-      recordingUrl: 'KOaeDHeJ80I',
+      recordingUrl: '1C8HDefa214',
     }
   ];
 
