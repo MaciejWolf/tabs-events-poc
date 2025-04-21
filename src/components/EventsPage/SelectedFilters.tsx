@@ -12,6 +12,7 @@ export const SelectedFilters = observer(() => {
     <Box mt={3} display="flex" flexWrap="wrap" gap={1}>
       {store.appliedFilters.map((filter) => (
         <Chip
+          key={filter.key}
           label={filter.label}
           onDelete={() => store.removeFilter(filter.key)}
           color="warning"

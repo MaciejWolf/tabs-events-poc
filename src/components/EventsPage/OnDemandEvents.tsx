@@ -4,8 +4,8 @@ import { Filter } from "../../types/Filter";
 import { useEffect } from "react";
 import { EventsList } from "./EventsList";
 import { SelectedFilters } from "./SelectedFilters";
-import { YouTubeVideoModal } from "../YouTubeVideoModal";
 import { useStores } from "../../stores/useStores";
+import { YouTubeVideoModal } from "../YouTube/YouTubeVideoModal";
 
 const priceFilters: Filter[] = [
   { key: 'free', category: 'price', label: "Free", apply: (event) => event.isPremium === false },
