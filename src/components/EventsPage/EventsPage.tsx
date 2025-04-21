@@ -1,7 +1,7 @@
 import { Box, Tab, Tabs } from "@mui/material"
 import { useEffect, useState } from "react";
-import { UpcomingEvents } from "./UpcomingEvents";
-import { OnDemandEvents } from "./OnDemandEvents";
+import { UpcomingEvents } from "./Tabs/Upcoming/UpcomingEvents";
+import { OnDemandEvents } from "./Tabs/OnDemand/OnDemandEvents";
 import { observer } from "mobx-react-lite";
 import { FiltersPanel } from "../FIltersPanel/FiltersPanel";
 import { Overlay } from "../Overlay";

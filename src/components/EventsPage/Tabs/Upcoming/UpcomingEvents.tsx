@@ -1,11 +1,11 @@
 import { Box, Button, CircularProgress, Typography } from "@mui/material";
 import { observer } from "mobx-react-lite";
-import { EventsList } from "./EventsList";
-import { Filter } from "../../types/Filter";
 import { useEffect } from "react";
-import { SelectedFilters } from "./SelectedFilters";
-import { isInPersonEvent, isOnlineEvent } from "../../types/TrackmanEvent";
-import { useStores } from "../../stores/useStores";
+import { useStores } from "../../../../stores/useStores";
+import { Filter } from "../../../../types/Filter";
+import { isInPersonEvent, isOnlineEvent } from "../../../../types/TrackmanEvent";
+import { EventsList } from "../../EventsList";
+import { SelectedFilters } from "../../SelectedFilters";
 
 const typeFilters: Filter[] = [
   { key: 'in-person', category: 'type', label: "In person", apply: isInPersonEvent },

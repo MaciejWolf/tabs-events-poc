@@ -1,11 +1,11 @@
 import { Box, Button, CircularProgress, Typography } from "@mui/material";
 import { observer } from "mobx-react-lite";
-import { Filter } from "../../types/Filter";
+import { Filter } from "../../../../types/Filter";
 import { useEffect } from "react";
-import { EventsList } from "./EventsList";
-import { SelectedFilters } from "./SelectedFilters";
-import { useStores } from "../../stores/useStores";
-import { YouTubeVideoModal } from "../YouTube/YouTubeVideoModal";
+import { EventsList } from "../../EventsList";
+import { SelectedFilters } from "../../SelectedFilters";
+import { useStores } from "../../../../stores/useStores";
+import { YouTubeVideoModal } from "../../../YouTube/YouTubeVideoModal";
 
 const priceFilters: Filter[] = [
   { key: 'free', category: 'price', label: "Free", apply: (event) => event.isPremium === false },
