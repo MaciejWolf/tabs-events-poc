@@ -35,9 +35,9 @@ const UpcomingEventRow = ({ event }: { event: UpcomingEvent }) =>
 
 const OnDemandEventRow = ({ event }: { event: OnDemandEvent }) => {
   const { youTubeVideoStore } = useStores();
-  
+
   return <ListItem key={event.id} divider>
-    <Box sx={{ display: 'flex', justifyContent: 'space-between' }} onClick={() => youTubeVideoStore.video = { videoLabel: event.name, videoId: event.recordingUrl }}>
+    <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
       <Button
         variant="text"
         color="primary"
