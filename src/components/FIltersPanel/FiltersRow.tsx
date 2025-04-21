@@ -1,7 +1,7 @@
 import { Box, Typography, Chip } from "@mui/material"
-import { store } from "../../stores/Store";
 import { Filter } from "../../types/Filter";
 import { observer } from "mobx-react-lite";
+import { useStores } from "../../stores/useStores";
 
 type Props = {
   header: string,
@@ -9,6 +9,8 @@ type Props = {
 }
 
 export const FiltersRow = observer(({ header, filters }: Props) => {
+  const { store } = useStores();
+
   return (
     <Box>
       <Typography variant="subtitle2" gutterBottom>

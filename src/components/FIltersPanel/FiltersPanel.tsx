@@ -2,7 +2,6 @@ import { Box, Button, Divider, IconButton, Chip, Typography, Paper } from "@mui/
 import { observer } from "mobx-react-lite"
 import CloseIcon from "@mui/icons-material/Close"
 import { FiltersRow } from "./FiltersRow"
-import { store } from "../../stores/Store"
 import { useStores } from "../../stores/useStores"
 
 type Props = {
@@ -10,6 +9,8 @@ type Props = {
 }
 
 export const FiltersPanel = observer(({ filteredEventsCount }: Props) => {
+  const { store } = useStores()
+
   return (
     <Paper
       sx={{
@@ -51,6 +52,8 @@ const Header = () => {
 }
 
 const SelectedFiltersRow = observer(() => {
+  const { store } = useStores()
+
   if (store.appliedFilters.length === 0)
     return <></>
 
@@ -69,6 +72,8 @@ const SelectedFiltersRow = observer(() => {
 })
 
 const ClearAllButton = () => {
+  const { store } = useStores()
+
   if (store.appliedFilters.length === 0)
     return <></>
 
@@ -85,7 +90,7 @@ const ClearAllButton = () => {
 }
 
 const Footer = ({ filteredEventsCount }: { filteredEventsCount: number }) => {
-  const { filtersPanelStore } = useStores();
+  const { store, filtersPanelStore } = useStores();
 
   return (
     <Box mt={4} display="flex" justifyContent="space-between">

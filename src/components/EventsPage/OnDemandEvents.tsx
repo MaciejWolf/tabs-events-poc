@@ -2,7 +2,6 @@ import { Box, Button, CircularProgress, Typography } from "@mui/material";
 import { observer } from "mobx-react-lite";
 import { Filter } from "../../types/Filter";
 import { useEffect } from "react";
-import { store } from "../../stores/Store";
 import { EventsList } from "./EventsList";
 import { SelectedFilters } from "./SelectedFilters";
 import { YouTubeVideoModal } from "../YouTubeVideoModal";
@@ -14,7 +13,7 @@ const priceFilters: Filter[] = [
 ]
 
 export const OnDemandEvents = observer(() => {
-  const { filtersPanelStore, youTubeVideoStore } = useStores();
+  const { store, filtersPanelStore, youTubeVideoStore } = useStores();
 
   useEffect(() => {
     store.setFilters([

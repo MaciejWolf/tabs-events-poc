@@ -1,6 +1,5 @@
 import { Box, Button, CircularProgress, Typography } from "@mui/material";
 import { observer } from "mobx-react-lite";
-import { store } from "../../stores/Store";
 import { EventsList } from "./EventsList";
 import { Filter } from "../../types/Filter";
 import { useEffect } from "react";
@@ -19,7 +18,7 @@ const priceFilters: Filter[] = [
 ]
 
 export const UpcomingEvents = observer(() => {
-  const { filtersPanelStore } = useStores();
+  const { store, filtersPanelStore } = useStores();
 
   useEffect(() => {
     store.setFilters([

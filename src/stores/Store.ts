@@ -5,7 +5,7 @@ import { getTrackmanEvents } from "../services/getTrackmanEvents";
 import { isOnDemandEvent, isUpcomingEvent, OnDemandEvent, TrackmanEvent, UpcomingEvent } from "../types/TrackmanEvent";
 import { groupBy } from "../utils/groupBy";
 
-class Store {
+export class Store {
   constructor() {
     makeAutoObservable(this);
   }
@@ -91,5 +91,3 @@ class Store {
 
   private isAcceptedByAllFilters = (filters: Array<((event: TrackmanEvent) => boolean)>) => (event: TrackmanEvent) => filters.every(filter => filter(event))
 }
-
-export const store = new Store();

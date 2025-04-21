@@ -1,7 +1,6 @@
 import { Box, Tab, Tabs } from "@mui/material"
 import { useEffect, useState } from "react";
 import { UpcomingEvents } from "./UpcomingEvents";
-import { store } from "../../stores/Store";
 import { OnDemandEvents } from "./OnDemandEvents";
 import { observer } from "mobx-react-lite";
 import { FiltersPanel } from "../FIltersPanel/FiltersPanel";
@@ -9,7 +8,7 @@ import { Overlay } from "../Overlay";
 import { useStores } from "../../stores/useStores";
 
 export const EventsPage = observer(() => {
-  const { filtersPanelStore } = useStores();
+  const { store, filtersPanelStore } = useStores();
 
   const [selectedTab, setSelectedTab] = useState(0);
   const handleChange = (_event: React.SyntheticEvent, newValue: number) => {

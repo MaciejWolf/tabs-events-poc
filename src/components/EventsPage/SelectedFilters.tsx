@@ -1,8 +1,10 @@
 import { Box, Chip } from "@mui/material"
 import { observer } from "mobx-react-lite"
-import { store } from "../../stores/Store"
+import { useStores } from "../../stores/useStores"
 
 export const SelectedFilters = observer(() => {
+  const { store } = useStores()
+
   if (store.appliedFilters.length === 0)
     return <></>
 
