@@ -5,9 +5,9 @@ import { useEffect } from "react";
 import { store } from "../../stores/Store";
 import { EventsList } from "./EventsList";
 import { SelectedFilters } from "./SelectedFilters";
-import { filtersPanelStore } from "../../stores/FiltersPanelStore";
 import { YouTubeVideoModal } from "../YouTubeVideoModal";
 import { youTubeVideoStore } from "../../stores/YouTubeVideoStore";
+import { useStores } from "../../stores/useStores";
 
 const priceFilters: Filter[] = [
   { key: 'free', category: 'price', label: "Free", apply: (event) => event.isPremium === false },
@@ -15,6 +15,7 @@ const priceFilters: Filter[] = [
 ]
 
 export const OnDemandEvents = observer(() => {
+  const { filtersPanelStore } = useStores();
 
   useEffect(() => {
     store.setFilters([

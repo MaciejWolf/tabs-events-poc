@@ -10,5 +10,3 @@ export class FiltersPanelStore {
   close = () => this.isOpen = false;
   open = () => this.isOpen = true;
 }
-
-export const filtersPanelStore = new FiltersPanelStore();

@@ -5,8 +5,8 @@ import { EventsList } from "./EventsList";
 import { Filter } from "../../types/Filter";
 import { useEffect } from "react";
 import { SelectedFilters } from "./SelectedFilters";
-import { filtersPanelStore } from "../../stores/FiltersPanelStore";
 import { isInPersonEvent, isOnlineEvent } from "../../types/TrackmanEvent";
+import { useStores } from "../../stores/useStores";
 
 const typeFilters: Filter[] = [
   { key: 'in-person', category: 'type', label: "In person", apply: isInPersonEvent },
@@ -19,6 +19,8 @@ const priceFilters: Filter[] = [
 ]
 
 export const UpcomingEvents = observer(() => {
+  const { filtersPanelStore } = useStores();
+
   useEffect(() => {
     store.setFilters([
       { category: "Type", filters: typeFilters },

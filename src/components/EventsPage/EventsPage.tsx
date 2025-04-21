@@ -3,12 +3,14 @@ import { useEffect, useState } from "react";
 import { UpcomingEvents } from "./UpcomingEvents";
 import { store } from "../../stores/Store";
 import { OnDemandEvents } from "./OnDemandEvents";
-import { filtersPanelStore } from "../../stores/FiltersPanelStore";
 import { observer } from "mobx-react-lite";
 import { FiltersPanel } from "../FIltersPanel/FiltersPanel";
 import { Overlay } from "../Overlay";
+import { useStores } from "../../stores/useStores";
 
 export const EventsPage = observer(() => {
+  const { filtersPanelStore } = useStores();
+
   const [selectedTab, setSelectedTab] = useState(0);
   const handleChange = (_event: React.SyntheticEvent, newValue: number) => {
     setSelectedTab(newValue)
@@ -47,8 +49,12 @@ export const EventsPage = observer(() => {
   )
 });
 
-const OverlayedFiltersPanel = ({ isOpen, filteredEventsCount }: { isOpen: boolean, filteredEventsCount: number }) => isOpen ? (
-  <Overlay onClick={filtersPanelStore.close}>
-    <FiltersPanel filteredEventsCount={filteredEventsCount} />
-  </Overlay>
-) : <></>;
+const OverlayedFiltersPanel = ({ isOpen, filteredEventsCount }: { isOpen: boolean, filteredEventsCount: number }) => {
+  const { filtersPanelStore } = useStores();
+
+  return isOpen ? (
+    <Overlay onClick={filtersPanelStore.close}>
+      <FiltersPanel filteredEventsCount={filteredEventsCount} />
+    </Overlay>
+  ) : <></>;
+};
