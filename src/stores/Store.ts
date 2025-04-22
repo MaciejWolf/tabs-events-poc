@@ -43,9 +43,9 @@ export class Store {
     this.isLoaded = true;
   }
 
-  categorisedFilters: { category: string; filters: Filter[] }[] = [];
+  categorisedFilters: { categoryName: string; filters: Filter[] }[] = [];
 
-  setFilters = (categorisedFilters: { category: string; filters: Filter[] }[]) => {
+  setFilters = (categorisedFilters: { categoryName: string; filters: Filter[] }[]) => {
     this.categorisedFilters = categorisedFilters;
     this.appliedFilters = [];
   }

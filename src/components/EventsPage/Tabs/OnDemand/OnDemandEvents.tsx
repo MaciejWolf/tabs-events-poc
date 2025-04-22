@@ -6,6 +6,7 @@ import { EventsList } from "../../EventsList";
 import { SelectedFilters } from "../../SelectedFilters";
 import { useStores } from "../../../../stores/useStores";
 import { YouTubeVideoModal } from "../../../YouTube/YouTubeVideoModal";
+import { OnDemandEventRow } from "./OnDemandEventRow";
 
 const priceFilters: Filter[] = [
   { key: 'free', category: 'price', label: "Free", apply: (event) => event.isPremium === false },
@@ -17,7 +18,7 @@ export const OnDemandEvents = observer(() => {
 
   useEffect(() => {
     store.setFilters([
-      { category: "Price", filters: priceFilters },
+      { categoryName: "Price", filters: priceFilters },
     ]);
   }, []);
 
@@ -28,9 +29,13 @@ export const OnDemandEvents = observer(() => {
   return (
     <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
       <Box>
-        <Typography variant="h6" gutterBottom>On Demand Events: {store.filteredOnDemandEvents.length}/{store.onDemandEvents.length}</Typography>
+        <Typography variant="h6" gutterBottom>
+          On Demand Events: {store.filteredOnDemandEvents.length}/{store.onDemandEvents.length}
+        </Typography>
         <SelectedFilters />
-        <EventsList events={store.filteredOnDemandEvents} />
+        <EventsList>
+          {store.filteredOnDemandEvents.map((event) => (<OnDemandEventRow key={event.id} event={event} />))}
+        </EventsList>
       </Box>
       {!filtersPanelStore.isOpen && (<Button onClick={filtersPanelStore.open}>Filters</Button>)}
 

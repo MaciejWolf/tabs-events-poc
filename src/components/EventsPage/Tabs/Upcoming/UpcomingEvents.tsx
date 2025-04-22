@@ -6,6 +6,7 @@ import { Filter } from "../../../../types/Filter";
 import { isInPersonEvent, isOnlineEvent } from "../../../../types/TrackmanEvent";
 import { EventsList } from "../../EventsList";
 import { SelectedFilters } from "../../SelectedFilters";
+import { UpcomingEventRow } from "./UpcomingEventRow";
 
 const typeFilters: Filter[] = [
   { key: 'in-person', category: 'type', label: "In person", apply: isInPersonEvent },
@@ -22,8 +23,8 @@ export const UpcomingEvents = observer(() => {
 
   useEffect(() => {
     store.setFilters([
-      { category: "Type", filters: typeFilters },
-      { category: "Price", filters: priceFilters },
+      { categoryName: "Type", filters: typeFilters },
+      { categoryName: "Price", filters: priceFilters },
     ]);
   }, []);
 
@@ -34,9 +35,13 @@ export const UpcomingEvents = observer(() => {
   return (
     <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
       <Box>
-        <Typography variant="h6" gutterBottom>Upcoming Events: {store.filteredUpcomingEvents.length}/{store.upcomingEvents.length}</Typography>
+        <Typography variant="h6" gutterBottom>
+          Upcoming Events: {store.filteredUpcomingEvents.length}/{store.upcomingEvents.length}
+        </Typography>
         <SelectedFilters />
-        <EventsList events={store.filteredUpcomingEvents} />
+        <EventsList>
+          {store.filteredUpcomingEvents.map((event) => <UpcomingEventRow key={event.id} event={event} />)}
+        </EventsList>
       </Box>
       {!filtersPanelStore.isOpen && (<Button onClick={filtersPanelStore.open}>Filters</Button>)}
     </Box>

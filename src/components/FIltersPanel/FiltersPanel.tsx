@@ -26,9 +26,9 @@ export const FiltersPanel = observer(({ filteredEventsCount }: Props) => {
     >
       <Header />
       {store.categorisedFilters.map((category) => (
-        <Box key={category.category}>
+        <Box key={category.categoryName}>
           <Divider sx={{ mb: 3 }} />
-          <FiltersRow header={category.category} filters={category.filters} />
+          <FiltersRow header={category.categoryName} filters={category.filters} />
         </Box>
       ))}
       <SelectedFiltersRow />
